@@ -25,6 +25,12 @@ $ pip install -r requirements.txt
 
 - Create a `.env` file with your `DATABASE_URL` pointing to a local database
 
+- Run database migrations
+
+```bash
+$ python manage.py migrate
+```
+
 - Collect static files (WhiteNoise is used in production and in development).
 
 ```bash
