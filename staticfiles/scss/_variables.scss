@@ -2,16 +2,15 @@
 
 // Colors
 $color-text: #424242;
-$color-muted: #888;
-$color-primary: #41EAD4;
-$color-primary-muted: #97F3E7;
-$color-accent: #FC7753;
-$color-accent-muted: #FDC1B0;
+$color-muted: #AAA;
+// $color-primary: #41EAD4;
+// $color-primary-muted: #97F3E7;
+$color-primary: #FC7753;
+$color-primary-muted: #FDC1B0;
 
 // Fonts
-@include font-face('Agane', '../fonts/agane/regular', normal, null, ttf);
-@include font-face('Agane', '../fonts/agane/heavy', bold, null, ttf);
 $font: 'Agane';
+$font-mono: 'Inconsolata';
 $font-size: 1.1em;
 $font-size-h1: 3em;
 $font-size-h2: 2.2em;
