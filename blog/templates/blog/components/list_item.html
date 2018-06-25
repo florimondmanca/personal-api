@@ -1,0 +1,12 @@
+{# post: Post #}
+
+<span id="post">
+  <span id="label" class="text-muted">
+    {{ post.published | date }}
+  </span>
+  <strong id="title">
+    <a href="{% url 'post-detail' post.pk %}">
+      {{ post.title}}
+    </a>
+  </strong>
+</span>

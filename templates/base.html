@@ -16,6 +16,16 @@
 </head>
 
 <body>
+  <nav id="nav">
+    <ul>
+      <li>
+        <a href="{% url 'post-list' %}">Home</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+    </ul>
+  </nav>
   <main id="main">
     {% block main %}
     {% endblock main %}
