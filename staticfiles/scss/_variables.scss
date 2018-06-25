@@ -1,0 +1,21 @@
+@import 'mixins/fontface';
+
+// Colors
+$color-text: #424242;
+$color-muted: #888;
+$color-primary: #41EAD4;
+$color-primary-muted: #97F3E7;
+$color-accent: #FC7753;
+$color-accent-muted: #FDC1B0;
+
+// Fonts
+@include font-face('Agane', '../fonts/agane/regular', normal, null, ttf);
+@include font-face('Agane', '../fonts/agane/heavy', bold, null, ttf);
+$font: 'Agane';
+$font-size: 1.1em;
+$font-size-h1: 3em;
+$font-size-h2: 2.2em;
+$font-size-h3: 1.8em;
+$font-size-h4: 1.5em;
+$font-size-h5: 1.3em;
+$font-size-h6: $font-size;

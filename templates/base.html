@@ -1,0 +1,30 @@
+{% load static %}
+{% load sass_tags %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>{% block title %}Florimond Manca{% endblock title %}</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="{% sass_src 'scss/base.scss' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    {% block header %}
+    {% endblock header %}
+  </header>
+  <main>
+    {% block main %}
+    {% endblock main %}
+  </main>
+  <footer>
+    {% block footer %}
+    {% endblock footer %}
+  </footer>
+</body>
+
+</html>

@@ -4,3 +4,6 @@ django-markdownx
 python-dotenv
 dj-database-url
 whitenoise
+libsass
+django-compressor
+django-sass-processor
