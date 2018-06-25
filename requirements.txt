@@ -1,2 +1,6 @@
 django
+psycopg2
 django-markdownx
+python-dotenv
+dj-database-url
+whitenoise
