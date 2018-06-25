@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load sass_tags %}
+
+{% block styles %}
+{{ block.super }}
+<link href="{% sass_src 'scss/page.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock styles %}
+
+{% block main %}
+<div class="page pad-h-sm">
+  {% block page %}{% endblock page %}
+</div>
+{% endblock main %}

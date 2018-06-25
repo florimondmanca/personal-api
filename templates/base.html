@@ -9,20 +9,23 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="{% sass_src 'scss/base.scss' %}" rel="stylesheet" type="text/css" />
+  {% block styles %}
+    <link href="{% sass_src 'scss/styles.scss' %}" rel="stylesheet" type="text/css" />
+    <link href="{% sass_src 'scss/base.scss' %}" rel="stylesheet" type="text/css" />
+  {% endblock styles %}
 </head>
 
 <body>
-  <header>
-    {% block header %}
-    {% endblock header %}
+  <header id="header">
+    {% block header %}{% endblock header %}
   </header>
-  <main>
+  <main id="main">
     {% block main %}
     {% endblock main %}
   </main>
-  <footer>
+  <footer id="footer">
     {% block footer %}
+    © {% now "Y" %} Florimond Manca
     {% endblock footer %}
   </footer>
 </body>
