@@ -1,8 +1,8 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
 
-{% block page %}
+{% block main %}
 <div id="app"></div>
-{% endblock page %}
+{% endblock %}
 
 {% block scripts %}
 <script type="text/javascript">
@@ -27,7 +27,7 @@ new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],
   template: `
-    <div>
+    <div class="page pad-h-sm">
       <app-header :post="post"></app-header>
       <p v-if="post.content" v-html="marked(post.content)"></p>
     </div>

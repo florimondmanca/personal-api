@@ -4,6 +4,7 @@ import logging
 
 from django.db import models
 from django.utils.text import slugify
+
 from markdownx.models import MarkdownxField
 
 logger = logging.getLogger('app.blog.models')

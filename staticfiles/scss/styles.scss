@@ -87,12 +87,16 @@ p > code {
   color: $color-inline-code;
 }
 
+@mixin card-shadow {
+  box-shadow: 0px 1px 1px 1px transparentize(black, 0.93);
+}
+
 pre {
   overflow: auto;
   padding: 1em;
   background: $color-gray-lightest;
   border-radius: 4px;
-  box-shadow: 0px 1px 1px 1px transparentize(black, 0.93);
+  @include card-shadow;
 }
 
 blockquote {
@@ -101,4 +105,31 @@ blockquote {
   color: $color-muted;
   font-family: $font-light;
   font-size: $font-size-quote;
+}
+
+textarea {
+  font: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+  resize: vertical;
+  @include card-shadow;
+  border-right: 1px solid #EEE;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+input {
+  font: inherit;
+  font-size: inherit;
+}
+
+
+button {
+  font: inherit;
+  font-size: inherit;
+  outline: none;
+  border: none;
+  background: $color-primary;
+  color: white;
 }

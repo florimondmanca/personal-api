@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins/button';
 
 .text-center {
   text-align: center;
@@ -8,13 +9,28 @@
   text-transform: uppercase;
 }
 
+.page {
+  max-width: $page-max-width;
+  margin: auto;
+}
+
 .pad-h-sm {
   padding-left: 1em;
   padding-right: 1em;
 }
 
+.pad-v-sm {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
 .text-muted {
   color: $color-muted;
+}
+
+p.text-hint {
+  color: $color-muted;
+  font-size: small;
 }
 
 .text-mono {
@@ -36,4 +52,29 @@
 hr.sm {
   max-width: 20em;
   margin: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.content-width {
+  width: fit-content;
+}
+
+// Buttons
+
+button, .button {
+  &.primary {
+    @include button($color-primary);
+    color: white;
+  }
+}
+
+// Sticky content
+
+.sticky-bottom-pad {
+  position: sticky;
+  right: 4em;
+  bottom: 0;
 }
