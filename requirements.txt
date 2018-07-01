@@ -1,4 +1,5 @@
 django
+djangorestframework
 psycopg2
 django-markdownx
 python-dotenv

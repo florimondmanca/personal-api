@@ -32,6 +32,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'markdownx',
     'sass_processor',
+    'rest_framework',
 ]
 
 PROJECT_APPS = [

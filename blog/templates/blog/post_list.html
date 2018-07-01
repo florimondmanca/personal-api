@@ -1,45 +1,38 @@
 {% extends "page.html" %}
-{% load blog %}
-
-{# posts: QuerySet[Post] #}
-
-{% block header %}
-<div class="text-center text-mono pad-h-sm">
-  <h1 class="text-primary">Florimond Manca</h1>
-  <h2>Notes from a curious coder</h2>
-</div>
-{% endblock header %}
 
 {% block page %}
-<ul id="list">
-  <post-item class="list-item"
-    v-for="post in posts"
-    v-bind:key="post.id"
-    v-bind:post="post"></post-item>
-</ul>
+<div id="app"></div>
 {% endblock page %}
 
 {% block scripts %}
 <script type="text/javascript">
 
-Vue.component('post-item', {
-  props: ['post'],
-  template: `
-    <span id="post">
-      <span id="label" class="text-muted">
-        {{ post.published }}
-      </span>
-      <strong id="title">
-        <a v-bind:href="'/posts/' + post.id">
-          {{ post.title }}
-        </a>
-      </strong>
-    </span>
-  `
-})
-
 new Vue({
-  el: '#list',
+  el: '#app',
+  delimiters: ['[[', ']]'],
+  template: `
+    <div>
+      <!-- Header -->
+      <div class="text-center text-mono pad-h-sm">
+        <h1 class="text-primary">Florimond Manca</h1>
+        <h2>Notes from a curious coder</h2>
+      </div>
+
+      <!-- List of blog posts -->
+      <div class="list">
+        <span class="post" v-for="post in posts" :key="post.id" :post="post">
+          <span class="label text-muted">
+          [[ post.published ]]
+        </span>
+          <strong>
+          <a :href="post.id">
+          [[ post.title ]]
+          </a>
+          </strong>
+        </span>
+      </div>
+    </div>
+  `,
   data: {
     posts: [],
   },
@@ -48,7 +41,7 @@ new Vue({
   },
   methods: {
     getPosts: function () {
-      this.$http.get('/posts')
+      this.$http.get('/api/posts')
         .then(function(response) { this.posts = response.data })
         .catch(function(error) { console.log(error) })
     },

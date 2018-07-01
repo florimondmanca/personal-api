@@ -1,18 +1,47 @@
 {% extends "page.html" %}
-{% load blog %}
-
-{# post: Post #}
-
-{% block header %}
-<div class="text-center text-mono pad-h-sm">
-  <h1 class="text-primary">{{ post.title }}</h1>
-  <p>{{ post.published | date }}</p>
-</div>
-{% endblock header %}
 
 {% block page %}
-<p>
-  {{ post.content }}
-</p>
-
+<div id="app"></div>
 {% endblock page %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+Vue.component('app-header', {
+  delimiters: ['[[', ']]'],
+  props: ['post'],
+  template: `
+    <div class="text-center text-mono pad-h-sm">
+    <h1 class="text-primary">[[ post.title ]]</h1>
+    <p>[[ post.published ]]</p>
+    </div>
+  `,
+});
+
+new Vue({
+  el: '#app',
+  delimiters: ['[[', ']]'],
+  template: `
+    <div>
+      <app-header :post="post"></app-header>
+      <p>
+      [[ post.content ]]
+      </p>
+    </div>
+  `,
+  data: {
+    post: { },
+  },
+  mounted: function () {
+    this.getPost({{ pk }});
+  },
+  methods: {
+    getPost: function (id) {
+      this.$http.get(`/api/posts/${id}/`)
+        .then(function(response) { this.post = response.data })
+        .catch(function(error) { console.log(error) })
+    },
+  },
+})
+</script>
+{% endblock scripts %}
