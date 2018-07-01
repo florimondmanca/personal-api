@@ -2,7 +2,9 @@
 
 // Body
 @include font-face('Agane', '../fonts/agane/regular', normal, null, ttf);
-@include font-face('Agane', '../fonts/agane/heavy', bold, null, ttf);
+@include font-face('Agane', '../fonts/agane/bold', bold, null, ttf);
+@include font-face('AganeHeavy', '../fonts/agane/heavy', bold, null, ttf);
+@include font-face('AganeLight', '../fonts/agane/light', normal, null, ttf);
 
 // Monospace
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
