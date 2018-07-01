@@ -13,9 +13,14 @@ Vue.component('app-header', {
   template: `
     <div class="text-center text-mono pad-h-sm">
     <h1 class="text-primary">[[ post.title ]]</h1>
-    <p>[[ post.published ]]</p>
+    <p>[[ post.published | moment ]]</p>
     </div>
   `,
+  filters: {
+    moment: function(date) {
+      return moment(date).format('MMMM Do YYYY');
+    },
+  },
 });
 
 new Vue({
@@ -24,9 +29,7 @@ new Vue({
   template: `
     <div>
       <app-header :post="post"></app-header>
-      <p>
-      [[ post.content ]]
-      </p>
+      <p v-if="post.content" v-html="marked(post.content)"></p>
     </div>
   `,
   data: {
@@ -40,6 +43,9 @@ new Vue({
       this.$http.get(`/api/posts/${id}/`)
         .then(function(response) { this.post = response.data })
         .catch(function(error) { console.log(error) })
+    },
+    marked: function (content) {
+      return marked(content);
     },
   },
 })

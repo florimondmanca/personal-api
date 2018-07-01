@@ -22,7 +22,7 @@ new Vue({
       <div class="list">
         <span class="post" v-for="post in posts" :key="post.id" :post="post">
           <span class="label text-muted">
-          [[ post.published ]]
+          [[ post.published | moment ]]
         </span>
           <strong>
           <a :href="post.id">
@@ -44,6 +44,11 @@ new Vue({
       this.$http.get('/api/posts')
         .then(function(response) { this.posts = response.data })
         .catch(function(error) { console.log(error) })
+    },
+  },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('MMMM Do YYYY');
     },
   },
 })

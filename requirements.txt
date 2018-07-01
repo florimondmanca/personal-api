@@ -2,9 +2,11 @@ django
 djangorestframework
 psycopg2
 django-markdownx
+pymdown-extensions
 python-dotenv
 dj-database-url
 whitenoise
 libsass
 django-compressor
 django-sass-processor
+pygments

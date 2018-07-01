@@ -13,7 +13,7 @@ body {
   padding: 0;
   margin: 0;
   color: $color-text;
-  font-family: $font;
+  font-family: $font, Arial, sans-serif;
   font-size: $font-size;
 }
 
@@ -64,4 +64,9 @@ a {
   &:hover {
     background: $color-primary-muted;
   }
+}
+
+pre code {
+  font-family: $font-mono, Courier, monospace;
+  font-size: .9em;
 }

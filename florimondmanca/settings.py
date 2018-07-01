@@ -38,6 +38,7 @@ THIRD_PARTY_APPS = [
 PROJECT_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
+    'api.apps.ApiConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -167,4 +168,12 @@ STATICFILES_FINDERS = [
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'staticfiles', 'scss'),
+]
+
+
+# Markdownx settings
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.fenced_code',
+    'markdown.extensions.codehilite',
 ]

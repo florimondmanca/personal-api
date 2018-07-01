@@ -9,9 +9,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {# highlight.js theme #}
+  {# see: https://cdnjs.com/libraries/highlight.js/ #}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css">
+  {# My styles #}
+  <link href="{% sass_src 'scss/styles.scss' %}" rel="stylesheet" type="text/css" />
+  <link href="{% sass_src 'scss/base.scss' %}" rel="stylesheet" type="text/css" />
   {% block styles %}
-    <link href="{% sass_src 'scss/styles.scss' %}" rel="stylesheet" type="text/css" />
-    <link href="{% sass_src 'scss/base.scss' %}" rel="stylesheet" type="text/css" />
   {% endblock styles %}
 </head>
 
@@ -38,8 +42,27 @@
 
   {# Vue #}
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  {# Vue Resource (API calls in Vue) #}
+
+  {# Vue Resource: simple API calls in Vue #}
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+  {# Moment: date manipulation #}
+  <script src="{% static 'js/moment.min.js' %}" charset="utf-8"></script>
+
+  {# Highlight: syntax highlighting #}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+  {# Marked: Markdown rendering #}
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <script type="text/javascript">
+    // Render Markdown code blocks using HighlightJS
+    marked.setOptions({
+      highlight: function(code, lang) {
+        return hljs.highlight(lang, code).value;
+      }
+    });
+  </script>
 
   {% block scripts %}{% endblock scripts %}
 
