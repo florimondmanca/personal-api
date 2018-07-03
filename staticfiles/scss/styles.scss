@@ -32,7 +32,9 @@ h1 {
 }
 
 h2 {
-  font-family: $font-heavy;
+  &:not(.font-mono) {
+    font-family: $font-heavy;
+  }
   font-size: $font-size-h2;
 }
 

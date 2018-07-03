@@ -26,7 +26,7 @@ new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],
   template: `
-    <form action="{% url 'post-create' %}" method="post">
+    <form action="{% url 'post-edit' pk %}" method="post">
       {% csrf_token %}
 
       <div id="editor" class="pad-h-sm">
@@ -51,8 +51,8 @@ new Vue({
     </form>
   `,
   data: {
-    title: 'Post title',
-    content: '',
+    title: '{{ title | escapejs }}',
+    content: '{{ content | escapejs }}',
   },
   methods: {
     marked: function (content) {

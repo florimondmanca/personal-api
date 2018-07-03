@@ -12,8 +12,9 @@ Vue.component('app-header', {
   props: ['post'],
   template: `
     <div class="text-center text-mono pad-h-sm">
-    <h1 class="text-primary">[[ post.title ]]</h1>
-    <p>[[ post.published | moment ]]</p>
+      <h1 class="text-primary">[[ post.title ]]</h1>
+      <p>[[ post.published | moment ]]</p>
+      <a href="{% url 'post-edit' pk %}">Edit</a>
     </div>
   `,
   filters: {

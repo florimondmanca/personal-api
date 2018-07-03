@@ -1,9 +1,10 @@
 """Blog views."""
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import TemplateView
 
-from .forms import PostCreateForm
+from .forms import PostForm
+from .models import Post
 
 
 class PostListView(TemplateView):
@@ -25,8 +26,31 @@ class PostCreateView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         """Create the blog post on POST."""
-        form = PostCreateForm(request.POST)
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            return redirect('post-detail', pk=post.pk)
+        return super().get(request, *args, **kwargs)
+
+
+class PostEditView(TemplateView):
+    """Create a new blog post."""
+
+    template_name = 'blog/post_edit.html'
+
+    def post(self, request, pk=None, **kwargs):
+        """Update the blog post on POST."""
+        post = get_object_or_404(Post, pk=pk)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('index')
-        return super().get(request, *args, **kwargs)
+            return redirect('post-detail', pk=post.pk)
+        return super().get(request, pk=pk, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """Insert post title and content in the context."""
+        context = super().get_context_data(**kwargs)
+        post = get_object_or_404(Post, pk=context['pk'])
+        context['title'] = post.title
+        context['content'] = post.content
+        return context
