@@ -17,6 +17,7 @@ Django = "*"
 django_compressor = "*"
 Pygments = "*"
 gunicorn = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

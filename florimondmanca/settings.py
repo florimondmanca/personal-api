@@ -14,6 +14,7 @@ DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = [
     'localhost',
+    '127.0.0.1',
     'florimondmanca.io',
 ]
 
@@ -33,12 +34,14 @@ THIRD_PARTY_APPS = [
     'markdownx',
     'sass_processor',
     'rest_framework',
+    'corsheaders',
 ]
 
 PROJECT_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
+    'api_key.apps.ApiKeyConfig'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -48,6 +51,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +91,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'florimondmanca.wsgi.application'
 
 
+# CORS
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+    'localhost:8080',
+    'florimondmanca.herokuapp.com',
+)
+CORS_ALLOW_HEADERS = [
+    'Api-Key',
+]
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -116,6 +131,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+# REST Framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        # Require authentication via an API key
+        'api_key.permissions.HasAPIAccess',
+    ]
+}
 
 
 # Logging
