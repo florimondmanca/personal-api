@@ -137,9 +137,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        # Require authentication via an API key
-        'api_key.permissions.HasAPIAccess',
-    ]
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'api_key.authentication.ApiKeyAuthentication',
+    ],
 }
 
 

@@ -7,10 +7,10 @@ from .utils import generate_key
 class APIKeyAdmin(admin.ModelAdmin):
     """Admin panel for API keys."""
 
-    list_display = ('client_id', 'created', 'id')
+    list_display = ('client_id', 'user', 'created', 'id')
 
     fieldsets = (
-        (None, {'fields': ('client_id', 'key_message')}),
+        (None, {'fields': ('user', 'client_id', 'key_message')}),
     )
     readonly_fields = ('key_message',)
 
