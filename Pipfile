@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+djangorestframework = "*"
+"psycopg2" = "*"
+django-markdownx = "*"
+pymdown-extensions = "*"
+python-dotenv = "*"
+dj-database-url = "*"
+whitenoise = "*"
+libsass = "*"
+django-sass-processor = "*"
+Django = "*"
+django_compressor = "*"
+Pygments = "*"
+gunicorn = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
