@@ -29,6 +29,6 @@ class APIKeyAdmin(admin.ModelAdmin):
             obj.key = generate_key()
             messages.add_message(request, messages.WARNING, (
                 f'The API key for {obj.client_id} is {obj.key}. '
-                'Please note it since you will not be able to see it again.'
+                'Please note it down: you will not be able to see it again.'
             ))
         obj.save()

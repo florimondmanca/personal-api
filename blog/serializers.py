@@ -1,12 +1,18 @@
 """Blog serializers."""
 
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from .models import Post
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer for blog posts."""
+
+    slug = serializers.SlugField(
+        max_length=Post.SLUG_MAX_LENGTH,
+        validators=[UniqueValidator(queryset=Post.objects.all())],
+    )
 
     class Meta:  # noqa
         model = Post

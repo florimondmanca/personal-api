@@ -2,6 +2,7 @@
 
 import os
 import dj_database_url
+from corsheaders.defaults import default_headers
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -98,9 +99,9 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
     'florimondmanca.herokuapp.com',
 )
-CORS_ALLOW_HEADERS = [
+CORS_ALLOW_HEADERS = default_headers + (
     'Api-Key',
-]
+)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
