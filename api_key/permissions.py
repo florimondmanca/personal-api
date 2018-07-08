@@ -8,5 +8,4 @@ class APIKeyPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
         api_key = request.META.get('HTTP_API_KEY', '')
-        print(api_key)
         return APIKey.objects.filter(key=api_key).exists()

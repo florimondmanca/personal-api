@@ -1,40 +1,44 @@
-# florimondmanca
+# CodeSailAPI
 
-This is the repository for my personal blog website, made with Django.
+This is the repository for the backend API powering CodeSail, a blog about web development and software engineering written by yours truely.
+
+<p class="text-center">
+  <a href="#">See it live</a>
+</p>
 
 ## Features
 
-- Simple blogging system: create posts, let users react.
-- No comments, no tags (told you — *it's simple*).
-- Clean, minimal design for a graceful reader experience.
+- Simple blogging system:
+  - Manage blog posts
+  - No comments, no tags
+- Medium-like user reactions
+- Secure API key and token authentication (ensure only the frontend app can request the API).
 
 ## Install
 
-- Create a virtual environment and activate it
+- Install dependencies using Pipenv:
 
 ```bash
-$ python3 -m venv env
-$ source env/bin/activate
+$ pipenv install
+$ pipenv shell
 ```
 
-- Install dependencies
+- Create a `.env` file with the following contents:
 
-```bash
-$ pip install -r requirements.txt
+```text
+# URL pointing to your local database
+DATABASE_URL=...
+DEBUG=True
+
+# optional but required to run via Procfile (e.g. using `heroku local`)
+HOST=localhost
+PORT=8000
 ```
-
-- Create a `.env` file with your `DATABASE_URL` pointing to a local database
 
 - Run database migrations
 
 ```bash
 $ python manage.py migrate
-```
-
-- Collect static files (WhiteNoise is used in production and in development).
-
-```bash
-$ python manage.py collectstatic
 ```
 
 ## Quick start
@@ -52,3 +56,7 @@ $ python manage.py runserver
 ```bash
 $ python manage.py test
 ```
+
+## Deployment
+
+This application can be readily deployed on Heroku.

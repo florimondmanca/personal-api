@@ -1,6 +1,5 @@
 from django.contrib import admin, messages
 from .models import APIKey
-from .utils import generate_key
 
 
 @admin.register(APIKey)
@@ -25,10 +24,11 @@ class APIKeyAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         """Display the API key on save."""
-        if not obj.key:
-            obj.key = generate_key()
+        if not obj.pk:
+            obj.save()
             messages.add_message(request, messages.WARNING, (
                 f'The API key for {obj.client_id} is {obj.key}. '
                 'Please note it down: you will not be able to see it again.'
             ))
-        obj.save()
+        else:
+            obj.save()

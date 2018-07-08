@@ -16,7 +16,7 @@ DEBUG = os.getenv('DEBUG', False)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'florimondmanca.io',
+    'codesail.io',
 ]
 
 
@@ -33,7 +33,6 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'markdownx',
-    'sass_processor',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -66,7 +65,7 @@ MIDDLEWARE = [
 
 # URL configuration
 
-ROOT_URLCONF = 'florimondmanca.urls'
+ROOT_URLCONF = 'codesail.urls'
 
 
 # Templates
@@ -90,7 +89,7 @@ TEMPLATES = [
 
 # WSGI
 
-WSGI_APPLICATION = 'florimondmanca.wsgi.application'
+WSGI_APPLICATION = 'codesail.wsgi.application'
 
 
 # CORS
@@ -98,7 +97,7 @@ WSGI_APPLICATION = 'florimondmanca.wsgi.application'
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
     'localhost:8080',
-    'florimondmanca.herokuapp.com',
+    'codesail.herokuapp.com',
 )
 CORS_ALLOW_HEADERS = default_headers + (
     'Api-Key',
@@ -192,12 +191,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
-]
-
-SASS_PROCESSOR_ROOT = STATIC_ROOT
-SASS_PROCESSOR_INCLUDE_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles', 'scss'),
 ]
 
 

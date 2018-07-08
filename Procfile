@@ -1,1 +1,1 @@
-web: gunicorn -b ${HOST:-0.0.0.0}:$PORT florimondmanca.wsgi:application
+web: gunicorn -b ${HOST:-0.0.0.0}:$PORT codesail.wsgi:application

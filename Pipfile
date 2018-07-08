@@ -4,21 +4,19 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-djangorestframework = "*"
+Django = ">=2.0"
+djangorestframework = ">=3.8"
 "psycopg2" = "*"
 django-markdownx = "*"
 pymdown-extensions = "*"
 python-dotenv = "*"
 dj-database-url = "*"
 whitenoise = "*"
-libsass = "*"
-django-sass-processor = "*"
-Django = "*"
-django_compressor = "*"
 Pygments = "*"
 gunicorn = "*"
 django-cors-headers = "*"
 django-filter = "*"
+factory-boy = "*"
 
 [dev-packages]
 

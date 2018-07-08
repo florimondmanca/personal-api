@@ -1,4 +1,5 @@
 from django.db import models
+from .utils import generate_key
 
 
 class APIKey(models.Model):
@@ -12,6 +13,11 @@ class APIKey(models.Model):
         ordering = ('-created',)
         verbose_name = 'API key'
         verbose_name_plural = 'API keys'
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.key = generate_key()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """Represent by the client ID."""
