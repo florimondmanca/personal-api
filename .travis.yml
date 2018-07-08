@@ -21,7 +21,7 @@ install:
 
 before_script:
   - psql -c 'create database personal;' -U postgres
-  - python manage.py migrate
+  - pipenv run python manage.py migrate
 
 script:
   - pipenv run python manage.py test
