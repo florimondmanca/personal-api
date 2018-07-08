@@ -1,6 +1,6 @@
-# CodeSailAPI
+# FlorimondManca API
 
-This is the repository for the backend API powering CodeSail, a blog about web development and software engineering written by yours truely.
+This is the repository for the backend API powering Florimond Manca's personal website and his blog, CodeSail.
 
 <p class="text-center">
   <a href="#">See it live</a>
