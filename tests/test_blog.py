@@ -70,7 +70,7 @@ class PostCreateTest(APITestCase):
         response = self.client.post(f'/api/posts/',
                                     data=payload, format='json')
         if check_created:
-            self.assertEqual(response.status_code, 201, response.data)
+            self.assertEqual(response.status_code, 201)
         return response
 
     def test_create(self):
@@ -81,7 +81,7 @@ class PostCreateTest(APITestCase):
             payload = self.get_payload()
             payload.pop(field)
             response = self.perform(payload=payload, check_created=False)
-            self.assertEqual(response.status_code, 400, field)
+            self.assertEqual(response.status_code, 400)
 
     def test_returns_expected_fields(self):
         response = self.perform()
@@ -96,19 +96,25 @@ class PostUpdateTest(APITestCase):
     def setUp(self):
         self.post = PostFactory.create()
 
-    def get_payload(self) -> dict:
-        return {
+    def test_update(self):
+        payload = {
             'title': 'Did everyone forget about apple juice?',
             'slug': 'did-everyone-forget-about-apple-juice',
             'content': 'Maybe.',
         }
-
-    def perform(self):
-        payload = self.get_payload()
         url = f'/api/posts/{self.post.slug}/'
         response = self.client.put(url, data=payload, format='json')
-        self.assertEqual(response.status_code, 200, response.data)
-        return response
+        self.assertEqual(response.status_code, 200)
 
-    def test_update(self):
-        self.perform()
+
+@authenticated
+class PostDeleteTest(APITestCase):
+    """Test the post update endpoint."""
+
+    def setUp(self):
+        self.post = PostFactory.create()
+
+    def test_delete(self):
+        url = f'/api/posts/{self.post.slug}/'
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)

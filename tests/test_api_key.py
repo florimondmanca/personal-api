@@ -29,7 +29,7 @@ class APIKeyTest(APITestCase):
         self.assertNotEqual(self.api_key.key, '')
 
     def test_key_long_enough(self):
-        self.assertGreater(len(self.api_key.key), 10)
+        self.assertGreater(len(self.api_key.key), 16)
 
 
 class APIKeyPermissionTest(APITestCase):
