@@ -3,15 +3,8 @@ language: python
 # Cache dependencies between builds
 cache: pip
 
-matrix:
-  include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
-
-env:
-  - SECRET_KEY=ujds34ZDfdjfzz498sfjknxcqsdm
-  - DATABASE_URL=postgres://postgres:postgres@localhost:5432/personal
+python:
+  - "3.6"
 
 services:
   - postgresql
