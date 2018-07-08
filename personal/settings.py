@@ -16,7 +16,7 @@ DEBUG = os.getenv('DEBUG', False)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'personal.com',
+    'florimondmanca.com',
 ]
 
 
@@ -32,9 +32,9 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'markdownx',
     'rest_framework',
     'rest_framework.authtoken',
+    'markdownx',
     'corsheaders',
 ]
 

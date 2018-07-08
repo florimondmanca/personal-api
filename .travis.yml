@@ -10,6 +10,7 @@ matrix:
       sudo: true
 
 env:
+  - SECRET_KEY=ujds34ZDfdjfzz498sfjknxcqsdm
   - DATABASE_URL=postgres://postgres:postgres@localhost:5432/personal
 
 services:
