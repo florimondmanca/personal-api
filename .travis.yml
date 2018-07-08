@@ -1,0 +1,28 @@
+language: python
+
+# Cache dependencies between builds
+cache: pip
+
+python:
+  - '3.7'
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database personal;' -U postgres
+  - python manage.py migrate
+
+script:
+  - python manage.py test
+
+# TODO
+# deploy:
+#   # See TravisCI docs: https://docs.travis-ci.com/user/deployment/heroku/
+#   provider: heroku
+#   app:
+#     master: florimondmanca-api
+#   run:
+#     # automatically run new migrations
+#     - 'python manage.py migrate'
+#   api_key: TODO
