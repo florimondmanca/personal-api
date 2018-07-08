@@ -1,5 +1,9 @@
 # FlorimondManca API
 
+[![Python](https://img.shields.io/badge/python-3.7-blue.svg)](https://docs.python.org/3/)
+[![Django](https://img.shields.io/badge/django-2.0-blue.svg)](https://www.djangoproject.com)
+[![Build Status](https://travis-ci.org/florimondmanca/personal-api.svg?branch=master)](https://travis-ci.org/florimondmanca/personal-api)
+
 This is the repository for the backend API powering Florimond Manca's personal website and his blog, CodeSail.
 
 <p class="text-center">
