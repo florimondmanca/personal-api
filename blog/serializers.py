@@ -11,7 +11,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     slug = serializers.SlugField(
         max_length=Post.SLUG_MAX_LENGTH,
-        validators=[UniqueValidator(queryset=Post.objects.all())],
+        validators=[UniqueValidator(queryset=Post.objects.all())]
     )
 
     class Meta:  # noqa

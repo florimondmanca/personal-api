@@ -7,10 +7,10 @@ from .utils import generate_key
 class APIKeyAdmin(admin.ModelAdmin):
     """Admin panel for API keys."""
 
-    list_display = ('client_id', 'user', 'created', 'id')
+    list_display = ('client_id', 'created', 'id')
 
     fieldsets = (
-        (None, {'fields': ('user', 'client_id', 'key_message')}),
+        (None, {'fields': ('client_id', 'key_message')}),
     )
     readonly_fields = ('key_message',)
 
@@ -18,10 +18,10 @@ class APIKeyAdmin(admin.ModelAdmin):
 
     def key_message(self, obj):
         """Message displayed instead of the API key."""
-        print(obj)
         if obj.key:
-            return 'Hidden'
+            return '***************'
         return 'The API key will be generated once you click save.'
+    key_message.short_description = 'Key'
 
     def save_model(self, request, obj, form, change):
         """Display the API key on save."""
