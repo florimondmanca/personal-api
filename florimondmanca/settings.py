@@ -16,7 +16,7 @@ DEBUG = os.getenv('DEBUG', False)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'codesail.io',
+    'florimondmanca.com',
 ]
 
 
@@ -65,7 +65,7 @@ MIDDLEWARE = [
 
 # URL configuration
 
-ROOT_URLCONF = 'codesail.urls'
+ROOT_URLCONF = 'florimondmanca.urls'
 
 
 # Templates
@@ -89,7 +89,7 @@ TEMPLATES = [
 
 # WSGI
 
-WSGI_APPLICATION = 'codesail.wsgi.application'
+WSGI_APPLICATION = 'florimondmanca.wsgi.application'
 
 
 # CORS
@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'codesail.wsgi.application'
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
     'localhost:8080',
-    'codesail.herokuapp.com',
+    'florimondmanca.com',
 )
 CORS_ALLOW_HEADERS = default_headers + (
     'Api-Key',
