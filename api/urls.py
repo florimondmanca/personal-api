@@ -1,8 +1,10 @@
 """API URLs."""
 
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 import blog.views
+from .views import obtain_auth_token
 
 # Enable view names as 'api:...'
 app_name = 'api'
@@ -14,3 +16,6 @@ router.register('posts', blog.views.PostViewSet)
 
 
 urlpatterns = router.urls
+urlpatterns += [
+    path('login/', obtain_auth_token)
+]

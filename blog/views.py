@@ -1,7 +1,9 @@
 """Blog views."""
 
 from rest_framework import viewsets
+
 from django_filters.rest_framework import DjangoFilterBackend
+
 from .models import Post
 from .serializers import PostSerializer
 
