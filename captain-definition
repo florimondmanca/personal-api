@@ -10,6 +10,6 @@
     "RUN pipenv install",
     "COPY ./src /usr/src/app/",
     "EXPOSE 8000",
-    "CMD pipenv run --no-interactive gunicorn -b 0.0.0.0:8000 personal.wsgi:application"
+    "CMD pipenv run gunicorn -b 0.0.0.0:8000 personal.wsgi:application"
   ]
 }
