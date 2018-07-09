@@ -29,7 +29,7 @@ before_deploy:
 
 deploy:
   provider: script
-  script: captainduckduck deploy -s -h http://167.99.84.65 -a api -p $CAPTAIN_PASSWORD
+  script: captainduckduck deploy -s -h https://captain.florimondmanca.com -a api -p $CAPTAIN_PASSWORD
   on:
     branch: master
 
