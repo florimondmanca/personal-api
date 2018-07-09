@@ -9,6 +9,7 @@
     "COPY ./src/Pipfile.lock /usr/src/app/",
     "RUN pipenv install",
     "COPY ./src /usr/src/app/",
+    "ENV SECRET_KEY",
     "RUN pipenv run python manage.py collectstatic --noinput",
     "EXPOSE 80",
     "CMD bash docker-entrypoint.sh"
