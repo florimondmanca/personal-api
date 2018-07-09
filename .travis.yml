@@ -6,6 +6,10 @@ cache: pip
 python:
   - "3.6"
 
+# Required by deploy.sh
+node_js:
+  - "8.7"
+
 services:
   - postgresql
 
@@ -20,13 +24,15 @@ before_script:
 script:
   - pipenv run python manage.py test
 
-# deploy:
-#   provider: heroku
-#   app:
-#     # only on master
-#     master: florimondmanca-api
-#   run:
-#     # automatically run database migrations
-#     - python manage.py migrate
-#   api_key:
-#     secure: "jg/YYder9ZBJMqo+OOz7VW4EkJN+SNHsJ1NlNDTpZDKGCRFIfm0cDuD0MkXubP/UqU+RgBW89kWm+mvxgtnxJnRUK27PVAwJyHz6BPKDEnT/voY3e6CVyKv7mxHt74/0bUayRPtmnyQFZ/T1pKhynUl70+mdidsXiRfxYm72fhCM3m0oQOihNtB5VIwsRLDNncfnKiLf9EQ/gdh/9Kr5CsaJG7hxdot9CCt41knBVb+UOwasAJ6GXKDAw2rcCjjtp6Z7pCw9+27CO7VE2lYi02IhOf5LsraW86m590H2upLMe/+ax5DWxJBloRucQSdlMN5bikSMeKYGlfnw1SW8RkkYhAzqF5mD1JJ1qiK6UBqUU0QkNMHJadFob3fd0Oaa2S9gskfNozC2ppQYzWUFZwenq/5akrBVvmuKbBCSAE0+1ADjgJhb8jWEseAcnBLXRfjEDFxEwEzq7WXS/s04pipE7+CXbeVB3ovTedFrhInw6z28qzCExBag3oMokV3UxTs3cTe8tIOcjWKngPd7pa/+sCOaFnWx6e70XyIJWkVLMU+TyDU7RchIQ5SXtWHyr/jWJD5tZycPBWcVGx16SpCdjYchzIa3HyY/P8GlVXuO1trtCoQK8JatXZ5UHP2NdzgaAN0hDwMhjZAI5ciPWn/o9ltjqEkdPFHV3Jwq1ew="
+before_deploy:
+  - npm install -g captainduckduck
+
+deploy:
+  provider: script
+  script: captainduckduck deploy -h 167.99.84.65 -a api -p $CAPTAIN_PASSWORD
+  on:
+    branch: master
+
+env:
+  global:
+    secure: QtwF6NaNx/w9tiZVghkOk8DIxG7I8IwY5e525ivgN3msCiQXWzgXniisos3Y3lovOUoSbH4tbGcuSK+oi8egXV9AdnnvzQjXZ3eHwUuM600o/fRaaxSA63B+IoDqFF8JNMKOvpHNjgPBd78vSbQe5tRO007o58kwNuoQfTv4/NLySfnsQ6C6AXvIHynzv4Rnr+duyms8kk0xNJEOoN6RP8lOCCTj1KmnYbcykFcymVwj8cPcLum90zHtp+mr7W3Qi2Y7xZJMT5PD2efqpcPa5LCvr+0wz9L6wPpAW7i4veHWeeZZcJcf1OroOaK0i4yUl7MBAvCiX7rsjTJSi/jhDeMHNSE0UgVrQqL2D3R/gbc7iguFAp4cGnNTnTPLLLeyK0oY/8rkiWT7EZOFOlagODLVNeZmNQ7yhMRBuwVS1rccnNVxtNAUDKC5L/O1hwJF6vjt5lHTBhYqYvsbbH+K9WWW9bUHStU4DCwJ2cXX9GzKZNWGiqn/P59EgBOOsney5nErowKNRXCy72bgd+ofPeOQdIV1dFaRSztgMNYCv7YVLUv4J+nE4hAYrMAapYSotLhNoJv1F6m/Cz8gcNc2FUr8rWJS23LkprHjeBDS1Z0n9mETVo68HcyoC9JjPGQiC30ILCbX4KMju3INVjxLk4wz3tVDkjDgCbmKqX2tKdA=
