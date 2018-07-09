@@ -9,7 +9,7 @@
     "COPY ./src/Pipfile.lock /usr/src/app/",
     "RUN pipenv install",
     "COPY ./src /usr/src/app/",
-    "EXPOSE 8000",
-    "CMD pipenv run gunicorn -b 0.0.0.0:8000 personal.wsgi:application"
+    "EXPOSE 80",
+    "CMD pipenv run gunicorn -b 0.0.0.0:80 personal.wsgi:application"
   ]
 }
