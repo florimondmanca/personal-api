@@ -9,7 +9,8 @@
     "COPY ./src/Pipfile.lock /usr/src/app/",
     "RUN pipenv install",
     "COPY ./src /usr/src/app/",
+    "RUN pipenv run python manage.py collectstatic --noinput"
     "EXPOSE 80",
-    "CMD pipenv run gunicorn -b 0.0.0.0:80 personal.wsgi:application"
+    "CMD bash docker-entrypoint.sh"
   ]
 }
