@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "dockerfileLines": [
+    "FROM python:3.6",
+    "RUN mkdir -p /usr/src/app",
+    "WORKDIR /usr/src/app",
+    "RUN pip install pipenv",
+    "COPY ./src/Pipfile /usr/src/app/",
+    "COPY ./src/Pipfile.lock /usr/src/app/",
+    "RUN pipenv install && pipenv shell",
+    "COPY ./src /usr/src/app/",
+    "EXPOSE 8000",
+    "CMD gunicorn -b 0.0.0.0:8000 personal.wsgi:application"
+  ]
+}
