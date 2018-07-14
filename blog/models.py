@@ -14,7 +14,7 @@ logger = logging.getLogger('app.blog.models')
 class Post(models.Model):
     """Represents a blog post."""
 
-    SLUG_MAX_LENGTH = 50
+    SLUG_MAX_LENGTH = 80
 
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True)
