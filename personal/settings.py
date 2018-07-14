@@ -37,6 +37,7 @@ THIRD_PARTY_APPS = [
     'rest_framework.authtoken',
     'markdownx',
     'corsheaders',
+    'django_filters',
 ]
 
 PROJECT_APPS = [
