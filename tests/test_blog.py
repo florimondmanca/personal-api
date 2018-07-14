@@ -14,6 +14,7 @@ _POST_FIELDS = {
     'slug',
     'title',
     'content',
+    'created',
     'published',
     'is_draft',
 }

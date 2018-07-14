@@ -8,6 +8,6 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     """Admin panel for blog posts."""
 
-    list_display = ('__str__', 'published',)
-    list_filter = ('published',)
+    list_display = ('__str__', 'created', 'published',)
+    list_filter = ('created', 'published',)
     readonly_fields = ('slug',)
