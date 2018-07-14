@@ -3,7 +3,6 @@
 import logging
 
 from django.db import models
-from django.db.models.functions import Cast
 from django.utils.text import slugify
 from django.utils import timezone
 
@@ -39,3 +38,8 @@ class Post(models.Model):
         """Publish a blog post by setting its published date."""
         self.published = timezone.now()
         self.save()
+
+    @property
+    def is_draft(self) -> bool:
+        """Return whether the post is a draft."""
+        return self.published is None

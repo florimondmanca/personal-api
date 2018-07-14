@@ -3,8 +3,20 @@
 from rest_framework.test import APITestCase
 
 from blog.factories import PostFactory
+from blog.models import Post
 
 from .decorators import authenticated
+
+
+_POST_FIELDS = {
+    'id',
+    'url',
+    'slug',
+    'title',
+    'content',
+    'published',
+    'is_draft',
+}
 
 
 @authenticated
@@ -25,7 +37,7 @@ class PostListTest(APITestCase):
 
     def test_returns_expected_fields(self):
         response = self.perform()
-        expected = {'id', 'url', 'slug', 'title', 'content', 'published'}
+        expected = _POST_FIELDS
         self.assertSetEqual(expected, set(response.data[0]))
 
 
@@ -46,7 +58,7 @@ class PostRetrieveTest(APITestCase):
 
     def test_returns_expected_fields(self):
         response = self.perform()
-        expected = {'id', 'url', 'slug', 'title', 'content', 'published'}
+        expected = _POST_FIELDS
         self.assertSetEqual(expected, set(response.data))
 
 
@@ -85,7 +97,7 @@ class PostCreateTest(APITestCase):
 
     def test_returns_expected_fields(self):
         response = self.perform()
-        expected = {'id', 'url', 'slug', 'title', 'content', 'published'}
+        expected = _POST_FIELDS
         self.assertSetEqual(expected, set(response.data))
 
 
@@ -105,6 +117,21 @@ class PostUpdateTest(APITestCase):
         url = f'/api/posts/{self.post.slug}/'
         response = self.client.put(url, data=payload, format='json')
         self.assertEqual(response.status_code, 200)
+
+
+@authenticated
+class PostPublishTest(APITestCase):
+    """Test the endpoint to update published state of a post."""
+
+    def setUp(self):
+        self.post = PostFactory.create()
+
+    def test_update_draft(self):
+        self.assertTrue(self.post.is_draft)
+        url = f'/api/posts/{self.post.slug}/publication/'
+        response = self.client.patch(url, data={})
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.data['is_draft'])
 
 
 @authenticated
