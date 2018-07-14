@@ -4,8 +4,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework.backends import DjangoFilterBackend
 
+from .filters import PostFilter
 from .models import Post
 from .serializers import PostSerializer
 
@@ -17,7 +18,7 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     lookup_field = 'slug'
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('slug',)
+    filterset_class = PostFilter
 
     @action(methods=['patch'], detail=True)
     def publication(self, request, **kwargs):
