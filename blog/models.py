@@ -3,7 +3,9 @@
 import logging
 
 from django.db import models
+from django.db.models.functions import Cast
 from django.utils.text import slugify
+from django.utils import timezone
 
 from markdownx.models import MarkdownxField
 
@@ -18,7 +20,10 @@ class Post(models.Model):
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True)
     content = MarkdownxField(blank=True, default='')
-    published = models.DateTimeField(auto_now_add=True)
+    published = models.DateTimeField(blank=True, null=True)
+
+    class Meta:  # noqa
+        ordering = ('-published',)
 
     def save(self, *args, **kwargs):
         """Set slug when creating a post."""
@@ -30,5 +35,7 @@ class Post(models.Model):
         """Represent by its title."""
         return str(self.title)
 
-    class Meta:  # noqa
-        ordering = ('-published',)
+    def publish(self):
+        """Publish a blog post by setting its published date."""
+        self.published = timezone.now()
+        self.save()
