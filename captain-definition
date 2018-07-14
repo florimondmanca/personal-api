@@ -11,7 +11,7 @@
     "COPY ./src /usr/src/app/",
     "ENV SECRET_KEY=1234",
     "RUN pipenv run python manage.py collectstatic --noinput",
-    "EXPOSE 80",
+    "EXPOSE 8000",
     "CMD bash docker-entrypoint.sh"
   ]
 }
