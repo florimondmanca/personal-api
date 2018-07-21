@@ -35,6 +35,8 @@ $ pipenv shell
 - Create a `.env` file with the following contents:
 
 ```text
+# Django secret key
+SECRET_KEY=...
 # URL pointing to your local database
 DATABASE_URL=...
 # Should not be set in production, only for local development
