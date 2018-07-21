@@ -17,6 +17,7 @@ gunicorn = "*"
 django-cors-headers = "*"
 django-filter = "*"
 factory-boy = "*"
+django-storages = "*"
 
 [dev-packages]
 

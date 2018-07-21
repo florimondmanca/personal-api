@@ -38,6 +38,7 @@ THIRD_PARTY_APPS = [
     'markdownx',
     'corsheaders',
     'django_filters',
+    'storages',
 ]
 
 PROJECT_APPS = [
