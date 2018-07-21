@@ -69,6 +69,19 @@ $ python manage.py test
 
 Travis CI is configured on this repo and will run the test suite on every push to a branch.
 
+## Media storage
+
+In production, user-uploaded files (such as images displayed in blog posts) are stored on an S3 bucket.
+
+To configure S3 storage, provide the following environment variables:
+
+```
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME
+AWS_S3_REGION_NAME
+```
+
 ## Deployment
 
 Deployment is configured in `.travis.yml` and is powered by [CaptainDuckDuck](https://captainduckduck.com):
