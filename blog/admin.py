@@ -10,4 +10,3 @@ class PostAdmin(admin.ModelAdmin):
 
     list_display = ('__str__', 'created', 'published',)
     list_filter = ('created', 'published',)
-    readonly_fields = ('slug',)
