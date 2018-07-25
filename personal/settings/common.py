@@ -29,6 +29,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = [
@@ -48,6 +49,10 @@ PROJECT_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
+
+# Sites
+
+SITE_ID = 1
 
 
 # Middleware
@@ -176,6 +181,10 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+
+# Frontend integration
+
+BLOG_ROOT_URL = os.environ.get('BLOG_ROOT_URL').rstrip('/')
 
 # Static files (CSS, JavaScript, Images)
 

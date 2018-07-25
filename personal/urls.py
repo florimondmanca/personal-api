@@ -5,12 +5,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from .feeds import LatestPostsFeed
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('markdownx/', include('markdownx.urls')),
     path('api/', include('api.urls')),
-    path('', RedirectView.as_view(url='admin', permanent=False), name='index')
+    path('feed/', LatestPostsFeed()),
+    path('', RedirectView.as_view(url='admin', permanent=False), name='index'),
 ]
 
 if settings.DEBUG:

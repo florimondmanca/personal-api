@@ -1,18 +1,25 @@
 """Blog models."""
 
-import logging
-
 from django.db import models
-from django.utils.text import slugify
 from django.utils import timezone
+from django.utils.text import Truncator, slugify
+from django.contrib.sites.models import Site
 
 from markdownx.models import MarkdownxField
 
-logger = logging.getLogger('app.blog.models')
+
+class PostManager(models.Manager):
+    """Custom object manager for blog posts."""
+
+    def published(self):
+        """Return published blog posts only."""
+        return self.get_queryset().filter(published__isnull=False)
 
 
 class Post(models.Model):
     """Represents a blog post."""
+
+    objects = PostManager()
 
     SLUG_MAX_LENGTH = 80
 
@@ -44,3 +51,19 @@ class Post(models.Model):
     def is_draft(self) -> bool:
         """Return whether the post is a draft."""
         return self.published is None
+
+    @property
+    def preview(self) -> str:
+        """Return a preview of the post contents."""
+        return Truncator(self.content).chars(120)
+
+    def get_absolute_url(self) -> str:
+        """Return the absolute URL of a blog post."""
+        domain = Site.objects.get_current().domain
+        return f'http://{domain}/{self.slug}'
+
+    @classmethod
+    def list_absolute_url(cls) -> str:
+        """Return the absolute URL for the list of posts."""
+        domain = Site.objects.get_current().domain
+        return f'http://{domain}/'
