@@ -17,8 +17,6 @@ DEBUG = os.getenv('DEBUG', False)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'florimondmanca-api.herokuapp.com',
-    '.florimondmanca.com',
 ]
 
 
@@ -98,12 +96,10 @@ WSGI_APPLICATION = 'personal.wsgi.application'
 
 # CORS
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:4200',
-    'localhost:8080',
-    'www.florimondmanca.com',
-    'florimondmanca.herokuapp.com',
-)
+CORS_ORIGIN_REGEX_WHITELIST = [
+    # localhost on any port
+    r'(https?://)?localhost:(\d+)',
+]
 CORS_ALLOW_HEADERS = default_headers + (
     'Api-Key',
 )
