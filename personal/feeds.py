@@ -10,8 +10,8 @@ class LatestPostsFeed(Feed):
 
     LIMIT_ITEMS = 5
 
-    title = 'CodeSail blog posts'
-    description = 'Updates on new blog posts published on CodeSail'
+    title = 'CodeSail by Florimond Manca'
+    description = 'Updates on latest blog posts published on CodeSail'
     author_name = 'Florimond Manca'
     categories = ('Web development', 'Software Engineering')
     ttl = 600  # time to live, minutes
