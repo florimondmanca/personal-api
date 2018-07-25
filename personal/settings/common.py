@@ -182,10 +182,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Frontend integration
-
-BLOG_ROOT_URL = os.environ.get('BLOG_ROOT_URL').rstrip('/')
-
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
