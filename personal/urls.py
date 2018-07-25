@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('markdownx/', include('markdownx.urls')),
     path('api/', include('api.urls')),
-    path('feed/', LatestPostsFeed()),
+    path('blog/feed/', LatestPostsFeed()),
     path('', RedirectView.as_view(url='admin', permanent=False), name='index'),
 ]
 
