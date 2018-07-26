@@ -13,9 +13,9 @@ router = DefaultRouter()
 
 # Blog endpoints
 router.register('posts', blog.views.PostViewSet)
+router.register('reactions', blog.views.ReactionViewSet)
 
 
-urlpatterns = router.urls
-urlpatterns += [
+urlpatterns = router.urls + [
     path('login/', obtain_auth_token)
 ]

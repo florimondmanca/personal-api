@@ -1,9 +1,9 @@
 """Blog models."""
 
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import timezone
 from django.utils.text import Truncator, slugify
-from django.contrib.sites.models import Site
 
 from markdownx.models import MarkdownxField
 
@@ -59,6 +59,11 @@ class Post(models.Model):
         """Return an unformatted preview of the post contents."""
         return Truncator(markdown_unformatted(self.content)).chars(200)
 
+    @property
+    def reaction_count(self) -> int:
+        """Return the number of reactions for this post."""
+        return self.reactions.count()
+
     def get_absolute_url(self) -> str:
         """Return the absolute URL of a blog post."""
         domain = Site.objects.get_current().domain
@@ -69,3 +74,14 @@ class Post(models.Model):
         """Return the absolute URL for the list of posts."""
         domain = Site.objects.get_current().domain
         return f'http://{domain}/'
+
+
+class Reaction(models.Model):
+    """Represents a positive reaction of a user to a post.
+
+    It is anonymous.
+    """
+
+    post = models.ForeignKey('Post', on_delete=models.CASCADE,
+                             related_name='reactions')
+    timestamp = models.DateTimeField(auto_now_add=True)

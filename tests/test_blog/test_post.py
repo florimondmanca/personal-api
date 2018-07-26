@@ -1,12 +1,9 @@
 """Blog tests."""
 
 from rest_framework.test import APITestCase
+from tests.decorators import authenticated
 
 from blog.factories import PostFactory
-from blog.models import Post
-
-from .decorators import authenticated
-
 
 _POST_FIELDS = {
     'id',
@@ -18,6 +15,7 @@ _POST_FIELDS = {
     'published',
     'is_draft',
 }
+_POST_DETAIL_FIELDS = _POST_FIELDS.union({'reaction_count'})
 
 
 @authenticated
@@ -83,7 +81,7 @@ class PostRetrieveTest(APITestCase):
 
     def test_returns_expected_fields(self):
         response = self.perform()
-        expected = _POST_FIELDS
+        expected = _POST_DETAIL_FIELDS
         self.assertSetEqual(expected, set(response.data))
 
 

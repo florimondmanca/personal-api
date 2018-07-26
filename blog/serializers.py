@@ -3,7 +3,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .models import Post
+from .models import Post, Reaction
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,3 +22,18 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {'view_name': 'api:post-detail', 'lookup_field': 'slug'},
         }
+
+
+class PostDetailSerializer(PostSerializer):
+    """Detail serializer for blog posts."""
+
+    class Meta(PostSerializer.Meta):  # noqa
+        fields = PostSerializer.Meta.fields + ('reaction_count',)
+
+
+class ReactionSerializer(serializers.ModelSerializer):
+    """Serializer for reactions."""
+
+    class Meta:  # noqa
+        model = Reaction
+        fields = ('id', 'timestamp', 'post')
