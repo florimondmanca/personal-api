@@ -84,4 +84,7 @@ class Reaction(models.Model):
 
     post = models.ForeignKey('Post', on_delete=models.CASCADE,
                              related_name='reactions')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.created)

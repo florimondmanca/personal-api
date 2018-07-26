@@ -1,4 +1,4 @@
-"""Blog post tests."""
+"""Post reactions tests."""
 
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated

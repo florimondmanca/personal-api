@@ -36,4 +36,4 @@ class ReactionSerializer(serializers.ModelSerializer):
 
     class Meta:  # noqa
         model = Reaction
-        fields = ('id', 'timestamp', 'post')
+        fields = ('id', 'created', 'post')
