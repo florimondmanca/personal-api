@@ -19,6 +19,7 @@ django-filter = "*"
 factory-boy = "*"
 django-storages = "*"
 "boto3" = "*"
+"beautifulsoup4" = "*"
 
 [dev-packages]
 

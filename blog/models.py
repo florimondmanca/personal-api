@@ -7,6 +7,8 @@ from django.contrib.sites.models import Site
 
 from markdownx.models import MarkdownxField
 
+from .utils import markdown_unformatted
+
 
 class PostManager(models.Manager):
     """Custom object manager for blog posts."""
@@ -54,8 +56,8 @@ class Post(models.Model):
 
     @property
     def preview(self) -> str:
-        """Return a preview of the post contents."""
-        return Truncator(self.content).chars(120)
+        """Return an unformatted preview of the post contents."""
+        return Truncator(markdown_unformatted(self.content)).chars(200)
 
     def get_absolute_url(self) -> str:
         """Return the absolute URL of a blog post."""
