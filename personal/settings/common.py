@@ -45,7 +45,8 @@ PROJECT_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
-    'api_key.apps.ApiKeyConfig'
+    'api_key.apps.ApiKeyConfig',
+    'banners.apps.BannersConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS

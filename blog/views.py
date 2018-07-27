@@ -1,9 +1,13 @@
 """Blog views."""
 
-from rest_framework import viewsets, mixins
+from io import StringIO
+
+from django.http import HttpResponse
+from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from banners.utils import Banner
 from django_filters.rest_framework.backends import DjangoFilterBackend
 
 from .filters import PostFilter
@@ -40,3 +44,18 @@ class ReactionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     queryset = Reaction.objects.all()
     serializer_class = ReactionSerializer
+
+
+def generate_banner(request, post: Post):
+    """Generate and download a post banner."""
+    image = Banner().generate(post.title)
+    filename = f'{post.slug}.png'
+
+    stream = StringIO()
+    image.save(stream)
+
+    response = HttpResponse()
+    response['Content-Disposition'] = f'attachment; filename={filename}'
+    response.write(stream.read())
+
+    return response
