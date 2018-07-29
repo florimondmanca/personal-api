@@ -1,5 +1,7 @@
 """Blog tests."""
 
+from datetime import timedelta
+from django.utils import timezone
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated
 
@@ -15,7 +17,7 @@ _POST_FIELDS = {
     'published',
     'is_draft',
 }
-_POST_DETAIL_FIELDS = _POST_FIELDS
+_POST_DETAIL_FIELDS = _POST_FIELDS.union({'next', 'previous'})
 
 
 @authenticated
@@ -71,8 +73,10 @@ class PostRetrieveTest(APITestCase):
     def setUp(self):
         self.post = PostFactory.create()
 
-    def perform(self):
-        response = self.client.get(f'/api/posts/{self.post.slug}/')
+    def perform(self, post=None):
+        if post is None:
+            post = self.post
+        response = self.client.get(f'/api/posts/{post.slug}/')
         self.assertEqual(response.status_code, 200)
         return response
 
@@ -83,6 +87,40 @@ class PostRetrieveTest(APITestCase):
         response = self.perform()
         expected = _POST_DETAIL_FIELDS
         self.assertSetEqual(expected, set(response.data))
+
+    def test_if_not_published_then_next_is_none(self):
+        response = self.perform()
+        self.assertIsNone(response.data['next'])
+
+    def test_if_published_but_no_next_then_next_is_none(self):
+        post = PostFactory.create(published=timezone.now())
+        response = self.perform(post)
+        self.assertIsNone(response.data['next'])
+
+    def test_if_published_and_has_next_then_next_is_its_slug(self):
+        now = timezone.now()
+        earlier = now - timedelta(days=1)
+        post = PostFactory.create(published=now)
+        next_post = PostFactory.create(published=earlier)
+        response = self.perform(post)
+        self.assertEqual(response.data['next'], next_post.slug)
+
+    def test_if_not_published_then_previous_is_none(self):
+        response = self.perform()
+        self.assertIsNone(response.data['previous'])
+
+    def test_if_published_but_no_previous_then_previous_is_none(self):
+        post = PostFactory.create(published=timezone.now())
+        response = self.perform(post)
+        self.assertIsNone(response.data['previous'])
+
+    def test_if_published_and_has_previous_then_previous_is_its_slug(self):
+        now = timezone.now()
+        later = now + timedelta(days=1)
+        post = PostFactory.create(published=now)
+        previous_post = PostFactory.create(published=later)
+        response = self.perform(post)
+        self.assertEqual(response.data['previous'], previous_post.slug)
 
 
 @authenticated

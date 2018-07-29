@@ -26,3 +26,9 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
 class PostDetailSerializer(PostSerializer):
     """Detail serializer for blog posts."""
+
+    previous = serializers.CharField(source='previous.slug', default=None)
+    next = serializers.CharField(source='next.slug', default=None)
+
+    class Meta(PostSerializer.Meta):  # noqa
+        fields = PostSerializer.Meta.fields + ('previous', 'next',)
