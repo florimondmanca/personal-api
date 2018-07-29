@@ -69,17 +69,3 @@ class Post(models.Model):
         """Return the absolute URL for the list of posts."""
         domain = Site.objects.get_current().domain
         return f'http://{domain}/'
-
-
-class Reaction(models.Model):
-    """Represents a positive reaction of a user to a post.
-
-    It is anonymous.
-    """
-
-    post = models.ForeignKey('Post', on_delete=models.CASCADE,
-                             related_name='reactions')
-    created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self) -> str:
-        return str(self.created)
