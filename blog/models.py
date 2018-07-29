@@ -76,7 +76,7 @@ class Post(models.Model):
         If the post is not published or there is no previous published post,
         returns None.
         """
-        return self._find_published(published__gt=self.published)
+        return self._find_published(published__lt=self.published)
 
     @property
     def next(self) -> Union['Post', None]:
@@ -85,7 +85,7 @@ class Post(models.Model):
         If the post is not published or there is no next published post,
         returns None.
         """
-        return self._find_published(published__lt=self.published)
+        return self._find_published(published__gt=self.published)
 
     def get_absolute_url(self) -> str:
         """Return the absolute URL of a blog post."""

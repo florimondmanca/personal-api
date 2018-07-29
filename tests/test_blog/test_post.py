@@ -131,8 +131,8 @@ class PostPreviousTest(PostNavigationTestMixin, APITestCase):
     relative_field = 'previous'
 
     def get_relative(self, published):
-        later = published + timedelta(days=1)
-        return PostFactory.create(published=later)
+        earlier = published - timedelta(days=1)
+        return PostFactory.create(published=earlier)
 
 
 @authenticated
@@ -142,8 +142,8 @@ class PostNextTest(PostNavigationTestMixin, APITestCase):
     relative_field = 'next'
 
     def get_relative(self, published):
-        earlier = published - timedelta(days=1)
-        return PostFactory.create(published=earlier)
+        later = published + timedelta(days=1)
+        return PostFactory.create(published=later)
 
 
 @authenticated
