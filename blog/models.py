@@ -62,11 +62,11 @@ class Post(models.Model):
         """Return an unformatted preview of the post contents."""
         return Truncator(markdown_unformatted(self.content)).chars(200)
 
-    def _find_published(self, **kwargs):
+    def _find_published(self, order_by, **kwargs):
         """Filter and get the first published item in the queryset, or None."""
         if not self.published:
             return None
-        qs = Post.objects.published().filter(**kwargs)
+        qs = Post.objects.published().order_by(order_by).filter(**kwargs)
         return qs and qs[0] or None
 
     @property
@@ -76,7 +76,7 @@ class Post(models.Model):
         If the post is not published or there is no previous published post,
         returns None.
         """
-        return self._find_published(published__lt=self.published)
+        return self._find_published('-published', published__lt=self.published)
 
     @property
     def next(self) -> Union['Post', None]:
@@ -85,7 +85,7 @@ class Post(models.Model):
         If the post is not published or there is no next published post,
         returns None.
         """
-        return self._find_published(published__gt=self.published)
+        return self._find_published('published', published__gt=self.published)
 
     def get_absolute_url(self) -> str:
         """Return the absolute URL of a blog post."""
