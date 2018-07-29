@@ -3,7 +3,7 @@
 from io import StringIO
 
 from django.http import HttpResponse
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -11,9 +11,8 @@ from banners.utils import Banner
 from django_filters.rest_framework.backends import DjangoFilterBackend
 
 from .filters import PostFilter
-from .models import Post, Reaction
-from .serializers import (PostDetailSerializer, PostSerializer,
-                          ReactionSerializer)
+from .models import Post
+from .serializers import PostDetailSerializer, PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -37,13 +36,6 @@ class PostViewSet(viewsets.ModelViewSet):
         post.publish()
         serializer = self.get_serializer(instance=post)
         return Response(serializer.data)
-
-
-class ReactionViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    """API endpoints for blog post reactions."""
-
-    queryset = Reaction.objects.all()
-    serializer_class = ReactionSerializer
 
 
 def generate_banner(request, post: Post):

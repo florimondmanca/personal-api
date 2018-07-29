@@ -3,7 +3,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .models import Post, Reaction
+from .models import Post
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,14 +26,3 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
 class PostDetailSerializer(PostSerializer):
     """Detail serializer for blog posts."""
-
-    class Meta(PostSerializer.Meta):  # noqa
-        fields = PostSerializer.Meta.fields + ('reaction_count',)
-
-
-class ReactionSerializer(serializers.ModelSerializer):
-    """Serializer for reactions."""
-
-    class Meta:  # noqa
-        model = Reaction
-        fields = ('id', 'created', 'post')

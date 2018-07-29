@@ -1,7 +1,7 @@
 """Blog administration."""
 
 from django.contrib import admin
-from .models import Post, Reaction
+from .models import Post
 
 from banners.views import download_banner
 
@@ -23,11 +23,3 @@ class PostAdmin(admin.ModelAdmin):
     generate_banner.short_description = (
         'Generate banner for first selected post'
     )
-
-
-@admin.register(Reaction)
-class ReactionAdmin(admin.ModelAdmin):
-    """Admin panel for reactions."""
-
-    list_display = ('created', 'post',)
-    list_filter = ('created',)

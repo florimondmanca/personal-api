@@ -19,10 +19,6 @@ Current:
   - No comments, no tags
 - Secure API key and token authentication (ensure only the frontend app can request the API).
 
-Coming soon:
-
-- Medium-like user reactions
-
 ## Install
 
 - Install dependencies using [Pipenv](https://docs.pipenv.org):

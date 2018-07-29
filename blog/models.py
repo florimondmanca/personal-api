@@ -59,11 +59,6 @@ class Post(models.Model):
         """Return an unformatted preview of the post contents."""
         return Truncator(markdown_unformatted(self.content)).chars(200)
 
-    @property
-    def reaction_count(self) -> int:
-        """Return the number of reactions for this post."""
-        return self.reactions.count()
-
     def get_absolute_url(self) -> str:
         """Return the absolute URL of a blog post."""
         domain = Site.objects.get_current().domain

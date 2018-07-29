@@ -15,7 +15,7 @@ _POST_FIELDS = {
     'published',
     'is_draft',
 }
-_POST_DETAIL_FIELDS = _POST_FIELDS.union({'reaction_count'})
+_POST_DETAIL_FIELDS = _POST_FIELDS
 
 
 @authenticated

@@ -13,7 +13,6 @@ router = DefaultRouter()
 
 # Blog endpoints
 router.register('posts', blog.views.PostViewSet)
-router.register('reactions', blog.views.ReactionViewSet)
 
 
 urlpatterns = router.urls + [
