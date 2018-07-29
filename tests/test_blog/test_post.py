@@ -5,6 +5,7 @@ from django.utils import timezone
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated
 
+from blog.models import Post
 from blog.factories import PostFactory
 
 _POST_FIELDS = {
@@ -88,39 +89,61 @@ class PostRetrieveTest(APITestCase):
         expected = _POST_DETAIL_FIELDS
         self.assertSetEqual(expected, set(response.data))
 
-    def test_if_not_published_then_next_is_none(self):
-        response = self.perform()
-        self.assertIsNone(response.data['next'])
 
-    def test_if_published_but_no_next_then_next_is_none(self):
+class PostNavigationTestMixin:
+    """Mixin for testing navigation fields on post detail."""
+
+    relative_field: str
+
+    def perform(self, post: Post):
+        response = self.client.get(f'/api/posts/{post.slug}/')
+        self.assertEqual(response.status_code, 200)
+        return response
+
+    def get_relative(self, published) -> Post:
+        raise NotImplementedError
+
+    def test_if_not_published_then_relative_is_none(self):
+        response = self.perform(PostFactory.create())
+        self.assertIsNone(response.data[self.relative_field])
+
+    def test_if_published_but_no_relative_then_relative_is_none(self):
         post = PostFactory.create(published=timezone.now())
         response = self.perform(post)
-        self.assertIsNone(response.data['next'])
+        self.assertIsNone(response.data[self.relative_field])
 
-    def test_if_published_and_has_next_then_next_is_its_slug(self):
+    def test_if_published_and_has_relative_then_relative_with_fields(self):
         now = timezone.now()
-        earlier = now - timedelta(days=1)
         post = PostFactory.create(published=now)
-        next_post = PostFactory.create(published=earlier)
+        relative = self.get_relative(now)
         response = self.perform(post)
-        self.assertEqual(response.data['next'], next_post.slug)
+        expected = {
+            'title': relative.title,
+            'slug': relative.slug,
+        }
+        self.assertDictEqual(response.data[self.relative_field], expected)
 
-    def test_if_not_published_then_previous_is_none(self):
-        response = self.perform()
-        self.assertIsNone(response.data['previous'])
 
-    def test_if_published_but_no_previous_then_previous_is_none(self):
-        post = PostFactory.create(published=timezone.now())
-        response = self.perform(post)
-        self.assertIsNone(response.data['previous'])
+@authenticated
+class PostPreviousTest(PostNavigationTestMixin, APITestCase):
+    """Test the previous field on retrieve endpoint."""
 
-    def test_if_published_and_has_previous_then_previous_is_its_slug(self):
-        now = timezone.now()
-        later = now + timedelta(days=1)
-        post = PostFactory.create(published=now)
-        previous_post = PostFactory.create(published=later)
-        response = self.perform(post)
-        self.assertEqual(response.data['previous'], previous_post.slug)
+    relative_field = 'previous'
+
+    def get_relative(self, published):
+        later = published + timedelta(days=1)
+        return PostFactory.create(published=later)
+
+
+@authenticated
+class PostNextTest(PostNavigationTestMixin, APITestCase):
+    """Test the next field on retrieve endpoint."""
+
+    relative_field = 'next'
+
+    def get_relative(self, published):
+        earlier = published - timedelta(days=1)
+        return PostFactory.create(published=earlier)
 
 
 @authenticated

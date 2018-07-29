@@ -24,11 +24,19 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class MinimalPostSerializer(serializers.ModelSerializer):
+    """Minimal serializer for post objects."""
+
+    class Meta:  # noqa
+        model = Post
+        fields = ('title', 'slug',)
+
+
 class PostDetailSerializer(PostSerializer):
     """Detail serializer for blog posts."""
 
-    previous = serializers.CharField(source='previous.slug', default=None)
-    next = serializers.CharField(source='next.slug', default=None)
+    previous = MinimalPostSerializer(read_only=True)
+    next = MinimalPostSerializer(read_only=True)
 
     class Meta(PostSerializer.Meta):  # noqa
         fields = PostSerializer.Meta.fields + ('previous', 'next',)
