@@ -7,5 +7,4 @@ __pycache__/
 
 /static/
 /media/*
-/media/test_assets/*
-!/media/test_assets/fake_image.png
+!/media/test_assets
