@@ -1,6 +1,5 @@
 """Blog models."""
 
-from contextlib import suppress
 from typing import Union
 
 from django.contrib.sites.models import Site
@@ -30,7 +29,12 @@ class Post(models.Model):
 
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True)
+    description = models.TextField(
+        default='', blank=True,
+        help_text='Used for social cards and RSS.')
     content = MarkdownxField(blank=True, default='')
+    image = models.ImageField(upload_to='post-images', blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     published = models.DateTimeField(blank=True, null=True)
 
@@ -91,6 +95,14 @@ class Post(models.Model):
         """Return the absolute URL of a blog post."""
         domain = Site.objects.get_current().domain
         return f'http://{domain}/{self.slug}'
+
+    def get_image_url(self) -> Union[str, None]:
+        """Return the absolute URL to the post's image, or None.
+
+        If an image was uploaded for the post, it is used in priority.
+        Otherwise, the image URL is used if set.
+        """
+        return self.image.url if self.image else self.image_url
 
     @classmethod
     def list_absolute_url(cls) -> str:

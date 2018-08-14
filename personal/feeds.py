@@ -26,7 +26,7 @@ class LatestPostsFeed(Feed):
         return post.title
 
     def item_description(self, post: Post) -> str:
-        return post.preview
+        return post.description or post.preview
 
     def item_pubdate(self, post: Post) -> str:
         return post.published

@@ -1,5 +1,7 @@
 """Blog serializers."""
 
+from typing import Union
+
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
@@ -13,11 +15,22 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         max_length=Post.SLUG_MAX_LENGTH,
         validators=[UniqueValidator(queryset=Post.objects.all())]
     )
+    image_url = serializers.SerializerMethodField()
+
+    def get_image_url(self, obj: Post) -> Union[str, None]:
+        """Return the full absolute URL to the post's image, or None."""
+        relative_url = obj.get_image_url()
+        if relative_url is None:
+            return None
+        request = self.context.get('request')
+        if not request:
+            return relative_url
+        return request.build_absolute_uri(relative_url)
 
     class Meta:  # noqa
         model = Post
-        fields = ('id', 'url', 'title', 'slug', 'content',
-                  'created', 'published', 'is_draft')
+        fields = ('id', 'url', 'title', 'slug', 'description', 'image_url',
+                  'content', 'created', 'published', 'is_draft')
         lookup_field = 'slug'
         extra_kwargs = {
             'url': {'view_name': 'api:post-detail', 'lookup_field': 'slug'},

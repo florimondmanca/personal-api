@@ -6,4 +6,6 @@ __pycache__/
 .env
 
 /static/
-/media/
+/media/*
+/media/test_assets/*
+!/media/test_assets/fake_image.png
