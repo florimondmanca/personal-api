@@ -1,7 +1,5 @@
 """Blog serializers."""
 
-from typing import Union
-
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
@@ -18,7 +16,7 @@ class ImageUrlField(serializers.Field):
     def to_representation(self, value: Post) -> str:
         """Return the absolute URL to the post's image."""
         relative_url = value.get_image_url()
-        if relative_url is None:
+        if not relative_url:
             return None
         request = self.context.get('request')
         if not request:  # cannot build full URL without request
@@ -30,6 +28,20 @@ class ImageUrlField(serializers.Field):
         return data
 
 
+class DescriptionField(serializers.Field):
+    """Custom field for post description."""
+
+    def get_attribute(self, obj: Post) -> Post:
+        """Pass the post object itself to `to_representation`."""
+        return obj
+
+    def to_representation(self, post: Post) -> str:
+        return post.description if post.description else post.preview
+
+    def to_internal_value(self, data: str) -> str:
+        return data
+
+
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer for blog posts."""
 
@@ -38,11 +50,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         validators=[UniqueValidator(queryset=Post.objects.all())]
     )
     image_url = ImageUrlField(required=False)
-    description = serializers.SerializerMethodField()
-
-    def get_description(self, post: Post) -> str:
-        """Return the post's description or its preview if not set."""
-        return post.description if post.description else post.preview
+    description = DescriptionField(required=False)
 
     class Meta:  # noqa
         model = Post
