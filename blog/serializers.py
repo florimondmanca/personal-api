@@ -16,16 +16,21 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         validators=[UniqueValidator(queryset=Post.objects.all())]
     )
     image_url = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
 
-    def get_image_url(self, obj: Post) -> Union[str, None]:
+    def get_image_url(self, post: Post) -> Union[str, None]:
         """Return the full absolute URL to the post's image, or None."""
-        relative_url = obj.get_image_url()
+        relative_url = post.get_image_url()
         if relative_url is None:
             return None
         request = self.context.get('request')
         if not request:
             return relative_url
         return request.build_absolute_uri(relative_url)
+
+    def get_description(self, post: Post) -> str:
+        """Return the post's description or its preview if not set."""
+        return post.description if post.description else post.preview
 
     class Meta:  # noqa
         model = Post
