@@ -11,11 +11,14 @@ class PostFilter(filters.FilterSet):
         field_name='published',
         lookup_expr='isnull',
     )
-    tags__contain = filters.CharFilter(
-        field_name='tags__contain',
-        lookup_expr='contains',
+    tag = filters.CharFilter(
+        field_name='tags',
+        method='_filter_tags_contain'
     )
+
+    def _filter_tags_contain(self, queryset, name: str, value: str):
+        return queryset.filter(tags__contains=[value])
 
     class Meta:  # noqa
         model = Post
-        fields = ('slug', 'tags__contain')
+        fields = ('slug', 'tag')
