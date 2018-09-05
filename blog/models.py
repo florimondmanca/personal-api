@@ -2,6 +2,7 @@
 
 from typing import Union
 
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import timezone
@@ -37,6 +38,8 @@ class Post(models.Model):
     image_url = models.URLField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     published = models.DateTimeField(blank=True, null=True)
+    tags = ArrayField(
+        models.CharField(max_length=100), blank=True, default=list)
 
     class Meta:  # noqa
         ordering = ('-published',)

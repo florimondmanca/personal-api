@@ -8,13 +8,14 @@ class PostFilter(filters.FilterSet):
     """Filter for post objects."""
 
     draft = filters.BooleanFilter(
-        field_name='published', method='_filter_is_draft')
+        field_name='published',
+        lookup_expr='isnull',
+    )
+    tags__contain = filters.CharFilter(
+        field_name='tags__contain',
+        lookup_expr='contains',
+    )
 
     class Meta:  # noqa
         model = Post
-        fields = ('slug',)
-
-    def _filter_is_draft(self, qs, name, value):
-        isnull = bool(value)
-        lookup_expr = f'{name}__isnull'
-        return qs.filter(**{lookup_expr: isnull})
+        fields = ('slug', 'tags__contain')
