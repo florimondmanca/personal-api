@@ -1,13 +1,14 @@
 # Personal API
 
-[![Python](https://img.shields.io/badge/python-3.7-blue.svg)](https://docs.python.org/3/)
-[![Django](https://img.shields.io/badge/django-2.0-blue.svg)](https://www.djangoproject.com)
-[![Build Status](https://travis-ci.org/florimondmanca/personal-api.svg?branch=master)](https://travis-ci.org/florimondmanca/personal-api)
-[![DigitalOcean](https://img.shields.io/badge/digitalocean-deployed-brightgreen.svg)](https://digitalocean.com)
+[![Build Status](https://img.shields.io/travis-ci/florimondmanca/personal-api.svg?style=flat-square)](https://travis-ci.org/florimondmanca/personal-api)
+[![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=flat-square)](https://docs.python.org/3/)
+[![Django](https://img.shields.io/badge/django-2.0-blue.svg?style=flat-square)](https://www.djangoproject.com)
+[![DigitalOcean](https://img.shields.io/badge/digitalocean-deployed-0069fe.svg?style=flat-square)](https://digitalocean.com)
+[![CaptainDuckDuck](https://img.shields.io/badge/captainduckduck-quack-fdc73d.svg?style=flat-square)](https://captainduckduck.com)
 
-This is the repository for the backend API powering CodeSail, my personal website and blog.
+[![](https://blog.florimondmanca.com/assets/img/codesail-full-600x355.png)](https://blog.florimondmanca.com)
 
-[See it live](https://blog.florimondmanca.com)
+This is the repository for the backend API powering [CodeSail](https://blog.florimondmanca.com), my personal website and blog.
 
 ## Features
 
@@ -31,7 +32,7 @@ $ pipenv shell
 
 - Create a `.env` file with the following contents:
 
-```text
+```
 # Django secret key
 SECRET_KEY=...
 # URL pointing to your local database
