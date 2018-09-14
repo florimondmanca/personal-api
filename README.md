@@ -6,9 +6,9 @@
 [![DigitalOcean](https://img.shields.io/badge/digitalocean-deployed-0069fe.svg?style=flat-square)](https://digitalocean.com)
 [![CaptainDuckDuck](https://img.shields.io/badge/captainduckduck-quack-fdc73d.svg?style=flat-square)](https://captainduckduck.com)
 
-[![](https://blog.florimondmanca.com/assets/img/codesail-full-600x355.png)](https://blog.florimondmanca.com)
+[![](https://blog.florimondmanca.com/assets/img/codesail-full-repo.png)](https://blog.florimondmanca.com)
 
-This is the repository for the backend API powering [CodeSail](https://blog.florimondmanca.com), my personal website and blog.
+This is the repository for the **backend REST API** powering [CodeSail](https://blog.florimondmanca.com), my personal website and blog.
 
 ## Features
 
