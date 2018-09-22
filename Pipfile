@@ -20,6 +20,8 @@ factory-boy = "*"
 django-storages = "*"
 "boto3" = "*"
 "beautifulsoup4" = "*"
+markdown = "<3.0"
+djangorestframework-api-key = "*"
 
 [dev-packages]
 

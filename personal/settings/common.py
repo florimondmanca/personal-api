@@ -40,6 +40,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_api_key',
     'markdownx',
     'corsheaders',
     'django_filters',
@@ -50,7 +51,6 @@ PROJECT_APPS = [
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
-    'api_key.apps.ApiKeyConfig',
     'banners.apps.BannersConfig',
 ]
 
@@ -150,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'api.permissions.APIKeyOrIsAuthenticated',
+        'rest_framework_api_key.permissions.HasAPIKeyOrIsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
