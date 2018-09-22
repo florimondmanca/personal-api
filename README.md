@@ -89,3 +89,11 @@ Deployment is configured in `.travis.yml` and is powered by [CaptainDuckDuck](ht
 - After a successful CI build, a deployment to a server running on DigitalOcean is triggered.
 - A Docker container defined in `captain-definition` is built from the `master` branch and run by CaptainDuckDuck on the host server.
 - No further configuration is required on the host server, except setting the required environment variables as described in [Install](#install).
+
+### About Pipenv
+
+Although Pipenv can be used for local development, my single-core, 1GB RAM virtual machine couldn't handle `pipenv install`'s high CPU and RAM load.
+
+As a workaround, I use a generated `requirements.txt` file.
+
+Make sure to re-run `pipenv lock -r > requirements.txt` anytime dependencies are updated.

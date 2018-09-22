@@ -4,13 +4,11 @@
     "FROM python:3.7",
     "RUN mkdir -p /usr/src/app",
     "WORKDIR /usr/src/app",
-    "RUN pip install pipenv",
-    "COPY ./src/Pipfile /usr/src/app/",
-    "COPY ./src/Pipfile.lock /usr/src/app/",
-    "RUN pipenv install",
+    "COPY ./src/requirements.txt /usr/src/app/",
+    "RUN pip install -r requirements.txt",
     "COPY ./src /usr/src/app/",
     "ENV SECRET_KEY=1234",
-    "RUN pipenv run python manage.py collectstatic --noinput",
+    "RUN python manage.py collectstatic --noinput",
     "EXPOSE 80",
     "CMD bash docker-entrypoint.sh"
   ]
