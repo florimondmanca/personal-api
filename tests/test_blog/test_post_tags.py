@@ -1,8 +1,10 @@
 """Test blog post tags."""
 
+from django.test import TestCase
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated
 
+from blog.models import Post
 from blog.factories import PostFactory
 
 
@@ -25,3 +27,16 @@ class SearchByTagTest(APITestCase):
         PostFactory.create(tags=['javascript', 'webdev'])
         response = self.perform()
         self.assertEqual(len(response.data), 0)
+
+
+class AllTagsTest(TestCase):
+    """Test the Post manager's method to retrieve distinct tags."""
+
+    def setUp(self):
+        PostFactory.create(tags=['python', 'webdev'])
+        PostFactory.create(tags=['python', 'docker'])
+        PostFactory.create(tags=[])
+
+    def test_distinct_tags_returns_all_distinct_tags(self):
+        tags = set(Post.objects.distinct_tags())
+        self.assertSetEqual(tags, {'python', 'webdev', 'docker'})

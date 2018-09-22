@@ -3,13 +3,14 @@
 from typing import Union
 
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import timezone
 from django.utils.text import Truncator, slugify
 
 from markdownx.models import MarkdownxField
 
+from .dbfunctions import Unnest
+from .signals import post_published
 from .utils import markdown_unformatted
 
 
@@ -19,6 +20,18 @@ class PostManager(models.Manager):
     def published(self):
         """Return published blog posts only."""
         return self.get_queryset().filter(published__isnull=False)
+
+    def distinct_tags(self):
+        """Return the list of distinct blog post tags.
+
+        Inspired by
+        -----------
+        https://dba.stackexchange.com/questions/126412/array-integer-how-to-get-all-distinct-values-in-a-table-and-count-them
+        """
+        queryset = self.get_queryset()
+        unnest_tags = Unnest('tags', distinct=True)
+        with_distinct_tags = queryset.annotate(tag=unnest_tags)
+        return with_distinct_tags.values_list('tag', flat=True)
 
 
 class Post(models.Model):
@@ -37,6 +50,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post-images', blank=True, null=True)
     image_url = models.URLField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(blank=True, null=True)
     tags = ArrayField(
         models.CharField(max_length=100), blank=True, default=list)
@@ -58,6 +72,7 @@ class Post(models.Model):
         """Publish a blog post by setting its published date."""
         self.published = timezone.now()
         self.save()
+        post_published.send(sender=Post, instance=self)
 
     @property
     def is_draft(self) -> bool:
@@ -95,9 +110,8 @@ class Post(models.Model):
         return self._find_published('published', published__gt=self.published)
 
     def get_absolute_url(self) -> str:
-        """Return the absolute URL of a blog post."""
-        domain = Site.objects.get_current().domain
-        return f'http://{domain}/{self.slug}'
+        """Return the absolute URL path of a blog post."""
+        return f'/{self.slug}/'
 
     def get_image_url(self) -> Union[str, None]:
         """Return the absolute URL to the post's image, or None.
@@ -109,6 +123,5 @@ class Post(models.Model):
 
     @classmethod
     def list_absolute_url(cls) -> str:
-        """Return the absolute URL for the list of posts."""
-        domain = Site.objects.get_current().domain
-        return f'http://{domain}/'
+        """Return the absolute URL path for the list of posts."""
+        return '/'

@@ -1,5 +1,6 @@
 """Project settings."""
 
+import sys
 import os
 import dj_database_url
 from corsheaders.defaults import default_headers
@@ -13,6 +14,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False)
+
+# Whether we're running tests
+TESTING = 'test' in sys.argv
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -30,6 +34,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 THIRD_PARTY_APPS = [

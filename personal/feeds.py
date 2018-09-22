@@ -13,7 +13,12 @@ class LatestPostsFeed(Feed):
     title = 'CodeSail by Florimond Manca'
     description = 'Updates on latest blog posts published on CodeSail'
     author_name = 'Florimond Manca'
-    categories = ('Web development', 'Software Engineering')
+    categories = (
+        'Blogging',
+        'Technology',
+        'Web development',
+        'Software Engineering',
+    )
     ttl = 600  # time to live, minutes
 
     def link(self) -> str:
