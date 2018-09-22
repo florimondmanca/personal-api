@@ -31,7 +31,7 @@ class PostManager(models.Manager):
         queryset = self.get_queryset()
         unnest_tags = Unnest('tags', distinct=True)
         with_distinct_tags = queryset.annotate(tag=unnest_tags)
-        return with_distinct_tags.values_list('tag', flat=True)
+        return with_distinct_tags.values_list('tag', flat=True).distinct()
 
 
 class Post(models.Model):

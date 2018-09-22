@@ -38,5 +38,6 @@ class AllTagsTest(TestCase):
         PostFactory.create(tags=[])
 
     def test_distinct_tags_returns_all_distinct_tags(self):
-        tags = set(Post.objects.distinct_tags())
-        self.assertSetEqual(tags, {'python', 'webdev', 'docker'})
+        tags = list(Post.objects.distinct_tags())
+        self.assertEqual(len(tags), 3)
+        self.assertSetEqual(set(tags), {'docker', 'python', 'webdev'})
