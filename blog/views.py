@@ -1,13 +1,9 @@
 """Blog views."""
 
-from io import StringIO
-
-from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from banners.utils import Banner
 from django_filters.rest_framework.backends import DjangoFilterBackend
 
 from .filters import PostFilter
@@ -36,18 +32,3 @@ class PostViewSet(viewsets.ModelViewSet):
         post.publish()
         serializer = self.get_serializer(instance=post)
         return Response(serializer.data)
-
-
-def generate_banner(request, post: Post):
-    """Generate and download a post banner."""
-    image = Banner().generate(post.title)
-    filename = f'{post.slug}.png'
-
-    stream = StringIO()
-    image.save(stream)
-
-    response = HttpResponse()
-    response['Content-Disposition'] = f'attachment; filename={filename}'
-    response.write(stream.read())
-
-    return response
