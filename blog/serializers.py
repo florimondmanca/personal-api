@@ -13,9 +13,9 @@ class ImageUrlField(serializers.Field):
         """Pass the post object itself to `to_representation`."""
         return obj
 
-    def to_representation(self, value: Post) -> str:
+    def to_representation(self, post: Post) -> str:
         """Return the absolute URL to the post's image."""
-        relative_url = value.get_image_url()
+        relative_url = post.image_url
         if not relative_url:
             return None
         request = self.context.get('request')
