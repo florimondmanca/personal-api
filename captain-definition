@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dockerfileLines": [
-    "FROM python:3.7",
+    "FROM python:3.7-alpine",
     "RUN mkdir -p /usr/src/app",
     "WORKDIR /usr/src/app",
     "COPY ./src/requirements.txt /usr/src/app/",
