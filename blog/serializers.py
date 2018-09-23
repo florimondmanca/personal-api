@@ -54,7 +54,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:  # noqa
         model = Post
-        fields = ('id', 'url', 'title', 'slug', 'description', 'image_url',
+        fields = ('id', 'url', 'title', 'slug', 'description',
+                  'image_url', 'image_caption',
                   'content', 'created', 'published', 'is_draft', 'tags',)
         lookup_field = 'slug'
         extra_kwargs = {

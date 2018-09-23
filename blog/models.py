@@ -48,6 +48,7 @@ class Post(models.Model):
         help_text='Used for social cards and RSS.')
     content = MarkdownxField(blank=True, default='')
     image_url = models.URLField(blank=True, null=True)
+    image_caption = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(blank=True, null=True)

@@ -12,6 +12,7 @@ _POST_FIELDS = {
     'title',
     'content',
     'image_url',
+    'image_caption',
     'description',
     'created',
     'published',
