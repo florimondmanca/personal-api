@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "dockerfileLines": [
     "FROM python:3.7-alpine",
+    "RUN echo 'Installing psycopg2 dependencies…'",
+    "RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev",
     "RUN mkdir -p /usr/src/app",
     "WORKDIR /usr/src/app",
     "COPY ./src/requirements.txt /usr/src/app/",
