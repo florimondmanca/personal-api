@@ -98,11 +98,11 @@
         },
         "djangorestframework-api-key": {
             "hashes": [
-                "sha256:4367b4a7a8e27e17c805609410eef52d12ebd4355b1d3653d9e933a2aef56f60",
-                "sha256:ab2ca9b7ce15c1d0b4842c67b9195863b38313470be6eb5197a8633309d5957b"
+                "sha256:394a7fc066d69f9bf92bcd2f860bc83481c5f2eea2465b90202505a6597fe111",
+                "sha256:a0a6d00b677a1221924ade63c17be5cdaf0da2395ec4fb0d134470631c811377"
             ],
             "index": "pypi",
-            "version": "==0.1.1"
+            "version": "==0.2.2"
         },
         "docutils": {
             "hashes": [
