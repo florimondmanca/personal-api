@@ -22,6 +22,7 @@ django-storages = "*"
 "beautifulsoup4" = "*"
 markdown = "<3.0"
 djangorestframework-api-key = "*"
+safety = "*"
 
 [dev-packages]
 
