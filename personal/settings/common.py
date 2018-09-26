@@ -111,7 +111,8 @@ CORS_ORIGIN_REGEX_WHITELIST = [
     r'(https?://)?localhost:(\d+)',
 ]
 CORS_ALLOW_HEADERS = default_headers + (
-    'Api-Key',
+    'Api-Token',
+    'Api-Secret-Key',
 )
 
 # Database
