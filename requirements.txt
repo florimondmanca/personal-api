@@ -1,30 +1,39 @@
--i https://pypi.org/simple
 beautifulsoup4==4.6.3
-boto3==1.9.9
-botocore==1.12.9
+boto3==1.9.10
+botocore==1.12.10
+certifi==2018.8.24
+chardet==3.0.4
+click==6.7
 dj-database-url==0.5.0
+Django==2.1.1
 django-cors-headers==2.4.0
 django-filter==2.0.0
 django-markdownx==2.0.24
 django-storages==1.7.1
-django==2.1.1
-djangorestframework-api-key==0.1.1
 djangorestframework==3.8.2
+djangorestframework-api-key==0.2.2
 docutils==0.14
+dparse==0.4.1
 factory-boy==2.11.1
-faker==0.9.1; python_version != '3.0.*'
+Faker==0.9.1
 gunicorn==19.9.0
+idna==2.7
 jmespath==0.9.3
-markdown==2.6.11
-pillow==5.2.0; python_version != '3.2.*'
+Markdown==2.6.11
+packaging==17.1
+Pillow==5.2.0
 psycopg2==2.7.5
-pygments==2.2.0
+Pygments==2.2.0
 pymdown-extensions==5.0
-python-dateutil==2.7.3; python_version >= '2.7'
+pyparsing==2.2.1
+python-dateutil==2.7.3
 python-dotenv==0.9.1
 pytz==2018.5
+PyYAML==3.13
+requests==2.19.1
 s3transfer==0.1.13
+safety==1.8.4
 six==1.11.0
 text-unidecode==1.2
-urllib3==1.23; python_version != '3.3.*'
+urllib3==1.23
 whitenoise==4.1
