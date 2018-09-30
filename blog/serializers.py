@@ -49,7 +49,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         max_length=Post.SLUG_MAX_LENGTH,
         validators=[UniqueValidator(queryset=Post.objects.all())]
     )
-    image_url = ImageUrlField(required=False)
+    image_url = ImageUrlField(required=False, allow_null=True)
     description = DescriptionField(required=False)
 
     class Meta:  # noqa
