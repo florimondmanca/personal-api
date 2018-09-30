@@ -68,11 +68,11 @@ class Post(models.Model):
         """Represent by its title."""
         return str(self.title)
 
-    def publish(self):
+    def publish(self, request=None):
         """Publish a blog post by setting its published date."""
         self.published = timezone.now()
         self.save()
-        post_published.send(sender=Post, instance=self)
+        post_published.send(sender=Post, instance=self, request=request)
 
     @property
     def is_draft(self) -> bool:

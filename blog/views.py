@@ -29,6 +29,6 @@ class PostViewSet(viewsets.ModelViewSet):
     def publication(self, request, **kwargs):
         """Publish a blog post."""
         post = self.get_object()
-        post.publish()
+        post.publish(request)
         serializer = self.get_serializer(instance=post)
         return Response(serializer.data)
