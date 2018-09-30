@@ -49,7 +49,7 @@ class StaticSitemap(Sitemap):
 
     def items(self) -> List[str]:
         """Return a list of static pages paths."""
-        return ['', 'about/me', 'about/tech']
+        return ['', 'about/me', 'about/tech', 'privacy']
 
     def location(self, page: str) -> str:
         """Return the location of a static page."""
