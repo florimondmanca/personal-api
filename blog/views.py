@@ -50,5 +50,5 @@ class PostViewSet(viewsets.ModelViewSet):
             {'tag': tag, 'post_count': counter[tag]}
             for tag in counter
         )
-        data = sorted(items, key=lambda tag: tag['post_count'])
+        data = sorted(items, key=lambda tag: tag['post_count'], reverse=True)
         return Response(data=data)

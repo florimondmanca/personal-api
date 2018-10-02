@@ -65,5 +65,9 @@ class TagListTest(TestCase):
 
     def test_ordered_by_count(self):
         tags = self.perform()
-        sorted_tags = sorted(tags, key=lambda tag: tag['post_count'])
+        sorted_tags = sorted(
+            tags,
+            key=lambda tag: tag['post_count'],
+            reverse=True,
+        )
         self.assertListEqual(tags, sorted_tags)
