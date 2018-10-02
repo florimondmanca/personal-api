@@ -1,11 +1,14 @@
 """Blog views."""
 
+from collections import Counter
+
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from django_filters.rest_framework.backends import DjangoFilterBackend
 
+from .dbfunctions import Unnest
 from .filters import PostFilter
 from .models import Post
 from .serializers import PostDetailSerializer, PostSerializer
@@ -32,3 +35,20 @@ class PostViewSet(viewsets.ModelViewSet):
         post.publish(request)
         serializer = self.get_serializer(instance=post)
         return Response(serializer.data)
+
+    @action(methods=['get'], detail=False)
+    def tags(self, request, **kwargs):
+        """Return a list of tags with their number of posts."""
+        # NOTE: Aggregation on Postgres ArrayField is hard without
+        # leaving the ORM.
+        # collections.Counter is super handy, so let's take all the tags
+        # out of DB and do the count aggregation with it.
+        # NOTE: Use generators for more efficient memory usage
+        tags = Post.objects.with_tags().values_list('tag', flat=True)
+        counter = Counter(tags)
+        items = (
+            {'tag': tag, 'post_count': counter[tag]}
+            for tag in counter
+        )
+        data = sorted(items, key=lambda tag: tag['post_count'])
+        return Response(data=data)

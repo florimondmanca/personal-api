@@ -17,21 +17,26 @@ from .utils import markdown_unformatted
 class PostManager(models.Manager):
     """Custom object manager for blog posts."""
 
-    def published(self):
+    def published(self) -> models.QuerySet:
         """Return published blog posts only."""
         return self.get_queryset().filter(published__isnull=False)
 
-    def distinct_tags(self):
+    def distinct_tags(self) -> models.QuerySet:
         """Return the list of distinct blog post tags.
 
         Inspired by
         -----------
         https://dba.stackexchange.com/questions/126412/array-integer-how-to-get-all-distinct-values-in-a-table-and-count-them
         """
+        with_tags = self.with_tags(dest='tag')
+        return with_tags.values_list('tag', flat=True).distinct()
+
+    def with_tags(self, dest='tag') -> models.QuerySet:
+        """Return a queryset annotated with flattened tags."""
         queryset = self.get_queryset()
-        unnest_tags = Unnest('tags', distinct=True)
-        with_distinct_tags = queryset.annotate(tag=unnest_tags)
-        return with_distinct_tags.values_list('tag', flat=True).distinct()
+        unnest_tags = Unnest('tags')
+        with_tags = queryset.annotate(**{dest: unnest_tags})
+        return with_tags
 
 
 class Post(models.Model):
