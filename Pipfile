@@ -20,7 +20,7 @@ factory-boy = "*"
 django-storages = "*"
 "boto3" = "*"
 "beautifulsoup4" = "*"
-markdown = "<3.0"
+markdown = "*"
 djangorestframework-api-key = "*"
 safety = "*"
 
