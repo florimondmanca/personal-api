@@ -29,7 +29,7 @@ class SearchByTagTest(APITestCase):
         self.assertEqual(len(response.data), 0)
 
 
-class AllTagsTest(TestCase):
+class DistinctTagsTest(TestCase):
     """Test the Post manager's method to retrieve distinct tags."""
 
     def setUp(self):
@@ -41,3 +41,29 @@ class AllTagsTest(TestCase):
         tags = list(Post.objects.distinct_tags())
         self.assertEqual(len(tags), 3)
         self.assertSetEqual(set(tags), {'docker', 'python', 'webdev'})
+
+
+@authenticated
+class TagListTest(TestCase):
+    """Test the endpoint to retrieve the list of tags."""
+
+    def setUp(self):
+        PostFactory.create(tags=['python', 'webdev'])
+        PostFactory.create(tags=['python', 'docker'])
+
+    def perform(self):
+        url = '/api/posts/tags/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        return response.data
+
+    def test_returns_list_of_tag_and_count(self):
+        tags = self.perform()
+        for tag in tags:
+            self.assertIn('tag', tag)
+            self.assertIn('post_count', tag)
+
+    def test_ordered_by_count(self):
+        tags = self.perform()
+        sorted_tags = sorted(tags, key=lambda tag: tag['post_count'])
+        self.assertListEqual(tags, sorted_tags)
