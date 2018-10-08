@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 from tests.decorators import authenticated
 
 from blog.models import Post
-from blog.factories import PostFactory
+from blog.factories import PostFactory, DraftFactory
 
 
 @authenticated
@@ -28,6 +28,11 @@ class SearchByTagTest(APITestCase):
         response = self.perform()
         self.assertEqual(len(response.data), 0)
 
+    def test_if_post_is_draft_then_not_included(self):
+        DraftFactory.create(tags=['python'])
+        response = self.perform()
+        self.assertEqual(len(response.data), 0)
+
 
 class DistinctTagsTest(TestCase):
     """Test the Post manager's method to retrieve distinct tags."""
@@ -39,7 +44,7 @@ class DistinctTagsTest(TestCase):
 
     def test_distinct_tags_returns_all_distinct_tags(self):
         tags = list(Post.objects.distinct_tags())
-        self.assertEqual(len(tags), 3)
+        self.assertEqual(len(tags), 3, tags)
         self.assertSetEqual(set(tags), {'docker', 'python', 'webdev'})
 
 

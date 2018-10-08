@@ -21,6 +21,10 @@ class PostManager(models.Manager):
         """Return published blog posts only."""
         return self.get_queryset().filter(published__isnull=False)
 
+    def drafts(self) -> models.QuerySet:
+        """Return draft blog posts only."""
+        return self.get_queryset().filter(published__isnull=True)
+
     def distinct_tags(self) -> models.QuerySet:
         """Return the list of distinct blog post tags.
 
@@ -29,7 +33,7 @@ class PostManager(models.Manager):
         https://dba.stackexchange.com/questions/126412/array-integer-how-to-get-all-distinct-values-in-a-table-and-count-them
         """
         with_tags = self.with_tags(dest='tag')
-        return with_tags.values_list('tag', flat=True).distinct()
+        return with_tags.order_by().values_list('tag', flat=True).distinct()
 
     def with_tags(self, dest='tag') -> models.QuerySet:
         """Return a queryset annotated with flattened tags."""
