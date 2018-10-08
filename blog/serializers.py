@@ -60,6 +60,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field = 'slug'
         extra_kwargs = {
             'url': {'view_name': 'api:post-detail', 'lookup_field': 'slug'},
+            'published': {'read_only': True},
         }
 
 

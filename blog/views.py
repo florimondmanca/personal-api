@@ -8,7 +8,6 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework.backends import DjangoFilterBackend
 
-from .dbfunctions import Unnest
 from .filters import PostFilter
 from .models import Post
 from .serializers import PostDetailSerializer, PostSerializer
