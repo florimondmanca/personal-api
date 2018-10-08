@@ -11,6 +11,7 @@ from django_filters.rest_framework.backends import DjangoFilterBackend
 from .filters import PostFilter
 from .models import Post
 from .serializers import PostDetailSerializer, PostSerializer
+from .pagination import PostPagination
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -21,6 +22,7 @@ class PostViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     filter_backends = (DjangoFilterBackend,)
     filterset_class = PostFilter
+    pagination_class = PostPagination
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
