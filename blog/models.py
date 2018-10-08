@@ -62,6 +62,14 @@ class Post(models.Model):
 
     class Meta:  # noqa
         ordering = ('-published',)
+        # NOTE: Django uses B-Tree indexes, enough for small datasets.
+        indexes = [
+            # `created` is used for ordering, which can be sped up by an index.
+            models.Index(fields=['created']),
+            # `published` is filtered on a lot (to retrieve drafts)
+            # and does not change very often.
+            models.Index(fields=(['published'])),
+        ]
 
     def save(self, *args, **kwargs):
         """Set slug when creating a post."""
