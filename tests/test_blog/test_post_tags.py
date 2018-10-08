@@ -1,5 +1,7 @@
 """Test blog post tags."""
 
+from typing import List
+
 from django.test import TestCase
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated
@@ -12,21 +14,21 @@ from blog.factories import PostFactory
 class SearchByTagTest(APITestCase):
     """Test the filtering of the blog post list for a given tag."""
 
-    def perform(self):
+    def perform(self) -> List[dict]:
         url = '/api/posts/'
         response = self.client.get(url, data={'tag': 'python'})
         self.assertEqual(response.status_code, 200)
-        return response
+        return response.data['results']
 
     def test_if_post_has_tag_then_included(self):
         PostFactory.create(tags=['python', 'webdev'])
-        response = self.perform()
-        self.assertEqual(len(response.data), 1)
+        posts = self.perform()
+        self.assertEqual(len(posts), 1)
 
     def test_if_post_does_not_have_tag_then_not_included(self):
         PostFactory.create(tags=['javascript', 'webdev'])
-        response = self.perform()
-        self.assertEqual(len(response.data), 0)
+        posts = self.perform()
+        self.assertEqual(len(posts), 0)
 
 
 class DistinctTagsTest(TestCase):
