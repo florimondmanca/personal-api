@@ -3,7 +3,7 @@
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated
 
-from blog.factories import PostFactory
+from blog.factories import PostFactory, DraftFactory
 
 _POST_FIELDS = {
     'id',
@@ -23,10 +23,11 @@ _POST_FIELDS = {
 
 @authenticated
 class PostListTest(APITestCase):
-    """Test the post list endpoint."""
+    """Test the list endpoint for published posts."""
 
     def setUp(self):
         PostFactory.create_batch(3)
+        DraftFactory.create()
 
     def perform(self, **params):
         response = self.client.get('/api/posts/', params)
@@ -48,20 +49,7 @@ class PostListTest(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['slug'], 'hello-world')
 
-    def test_filter_not_draft_returns_published_only(self):
-        post = PostFactory.create()
-        post.publish()
-        response = self.perform(draft=False)
-        self.assertEqual(len(response.data), 1)
-        post_data = response.data[0]
-        self.assertEqual(post_data['id'], post.pk)
-        self.assertFalse(post_data['is_draft'])
-
-    def test_filter_draft_returns_drafts_only(self):
-        post = PostFactory.create()
-        post.publish()
-        response = self.perform(draft=True)
-        self.assertEqual(len(response.data), 3)
-        self.assertNotIn(post.pk, map(lambda post: post['id'], response.data))
+    def test_returns_published_only(self):
+        response = self.perform()
         for post in response.data:
-            self.assertTrue(post['is_draft'])
+            self.assertFalse(post['is_draft'])
