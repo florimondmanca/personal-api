@@ -7,4 +7,4 @@ class PostPagination(CursorPagination):
     """Pagination configuration for blog posts."""
 
     page_size = 10  # Must be set, non-configurable by client
-    ordering = '-created'  # The default
+    ordering = '-published'  # The default

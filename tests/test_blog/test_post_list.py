@@ -1,6 +1,9 @@
 """Test list of blog posts."""
 
 from typing import List
+from time import sleep
+from django.utils import timezone
+from datetime import timedelta
 from rest_framework.test import APITestCase
 from tests.decorators import authenticated
 
@@ -57,6 +60,20 @@ class PostListTest(APITestCase):
         post_data = posts[0]
         self.assertEqual(post_data['id'], post.pk)
         self.assertFalse(post_data['is_draft'])
+
+    def test_filter_not_draft_returns_in_published_date_order(self):
+        now = timezone.now()
+        yesterday = timezone.now() - timedelta(days=1)
+        now_post = PostFactory.create(published=now)
+        sleep(.1)
+        yesterday_post = PostFactory.create(published=yesterday)
+        posts = self.perform(draft=False)
+        by_published_desc = sorted(
+            posts, key=lambda post: post['published'], reverse=True)
+        self.assertListEqual(
+            [p['id'] for p in by_published_desc],
+            [now_post.pk, yesterday_post.pk],
+        )
 
     def test_filter_draft_returns_drafts_only(self):
         post = PostFactory.create()
