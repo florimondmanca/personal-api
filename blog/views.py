@@ -23,7 +23,7 @@ class PostViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     filter_backends = (SearchFilter, DjangoFilterBackend,)
     filterset_class = PostFilter
-    search_fields = ('title', 'slug')
+    search_fields = ('title', 'description')
     pagination_class = PostPagination
 
     def get_serializer_class(self):

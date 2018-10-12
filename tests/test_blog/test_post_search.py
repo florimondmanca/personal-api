@@ -12,7 +12,7 @@ class PostSearchListTest(APITestCase):
 
     def setUp(self):
         self.post1 = PostFactory.create(title='Getting Started With Python')
-        self.post2 = PostFactory.create(title='Test', slug='foo')
+        self.post2 = PostFactory.create(description='Ruby: From Zero To Hero')
         self.post3 = PostFactory.create(tags=['docker'])
 
     def search(self, term: str):
@@ -26,8 +26,8 @@ class PostSearchListTest(APITestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]['id'], self.post1.pk)
 
-    def test_returns_posts_matching_slug(self):
-        results = self.search('foo')
+    def test_returns_posts_matching_description(self):
+        results = self.search('Ruby')
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]['id'], self.post2.pk)
 
