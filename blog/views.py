@@ -3,6 +3,7 @@
 from collections import Counter
 
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -10,8 +11,8 @@ from django_filters.rest_framework.backends import DjangoFilterBackend
 
 from .filters import PostFilter
 from .models import Post
-from .serializers import PostDetailSerializer, PostSerializer
 from .pagination import PostPagination
+from .serializers import PostDetailSerializer, PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -20,8 +21,9 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (SearchFilter, DjangoFilterBackend,)
     filterset_class = PostFilter
+    search_fields = ('title', 'slug')
     pagination_class = PostPagination
 
     def get_serializer_class(self):

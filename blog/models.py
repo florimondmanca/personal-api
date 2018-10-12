@@ -73,7 +73,7 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         """Set slug when creating a post."""
-        if not self.pk:
+        if not self.pk and not self.slug:
             self.slug = slugify(self.title)[:self.SLUG_MAX_LENGTH]
         return super().save(*args, **kwargs)
 
