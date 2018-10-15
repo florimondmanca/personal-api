@@ -21,4 +21,4 @@ class PostFilter(filters.FilterSet):
 
     class Meta:  # noqa
         model = Post
-        fields = ('draft', 'tag',)
+        fields = ('draft', 'slug', 'tag',)

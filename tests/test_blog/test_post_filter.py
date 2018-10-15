@@ -25,6 +25,8 @@ class PostFilterListTest(APITestCase):
         posts = self.perform(slug=post.slug)
         self.assertEqual(len(posts), 1)
         self.assertEqual(posts[0]['slug'], 'hello-world')
+        posts = self.perform(slug='good-bye')
+        self.assertEqual(len(posts), 0)
 
     def test_filter_not_draft_returns_published_only(self):
         post = PostFactory.create()
