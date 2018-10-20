@@ -44,7 +44,7 @@ class PopularTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         Tag.objects
         .with_post_counts(published_only=True)
         .filter(post_count__gt=0)  # Remove tags that have no published posts
-        .order_by('-post_count')
+        .order_by('-post_count', 'name')  # break count ties using name
     )
     serializer_class = TagSerializer
 

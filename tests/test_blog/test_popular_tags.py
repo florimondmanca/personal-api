@@ -22,6 +22,7 @@ class PopularTagTest(APITestCase):
         posts = [
             PostFactory.create(tags=['python', 'docker']),
             PostFactory.create(tags=['python']),
+            PostFactory.create(tags=['aws']),
             PostFactory.create(),
         ]
         for post in posts:
@@ -34,7 +35,7 @@ class PopularTagTest(APITestCase):
 
     def test_list(self):
         tags = self.perform()
-        self.assertEqual(len(tags), 2)
+        self.assertEqual(len(tags), 3)
 
     def test_returns_expected_fields(self):
         tags = self.perform()
@@ -62,3 +63,8 @@ class PopularTagTest(APITestCase):
         PostFactory.create(tags=['angular'])  # not published
         tags = self.perform()
         self.assertNotIn('angular', map(lambda tag: tag['name'], tags))
+
+    def test_equal_count_tags_sorted_in_alphabetical_order(self):
+        tags = self.perform()
+        self.assertEqual('aws', tags[1]['name'])
+        self.assertEqual('docker', tags[2]['name'])
