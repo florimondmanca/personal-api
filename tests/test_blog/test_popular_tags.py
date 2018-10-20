@@ -48,3 +48,9 @@ class PopularTagTest(APITestCase):
         expected = [tag['name']
                     for tag in sorted_by_post_count_desc]
         self.assertListEqual(actual, expected)
+
+    def test_limit_query_parameter_limits_amount_of_returned_values(self):
+        tags = self.perform(limit=1)
+        self.assertEqual(len(tags), 1)
+        with_most_posts = 'python'
+        self.assertEqual(tags[0]['name'], with_most_posts)

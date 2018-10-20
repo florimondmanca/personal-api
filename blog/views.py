@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework.backends import DjangoFilterBackend
 
-from .filters import PostFilter
+from .filters import PostFilter, PopularTagFilter
 from .models import Post, Tag
 from .pagination import PostPagination
 from .serializers import PostDetailSerializer, PostSerializer, TagSerializer
@@ -50,3 +50,6 @@ class PopularTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     queryset = Tag.objects.with_post_counts().order_by('-post_count')
     serializer_class = TagSerializer
+
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = PopularTagFilter
