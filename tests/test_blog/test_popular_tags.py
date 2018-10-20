@@ -19,9 +19,13 @@ class PopularTagTest(APITestCase):
     """Test the popular tags endpoint."""
 
     def setUp(self):
-        PostFactory.create(tags=['python', 'docker'])
-        PostFactory.create(tags=['python'])
-        PostFactory.create()
+        posts = [
+            PostFactory.create(tags=['python', 'docker']),
+            PostFactory.create(tags=['python']),
+            PostFactory.create(),
+        ]
+        for post in posts:
+            post.publish()
 
     def perform(self, **params) -> List[dict]:
         response = self.client.get('/api/popular-tags/', params)
@@ -53,3 +57,8 @@ class PopularTagTest(APITestCase):
         self.assertEqual(len(tags), 1)
         with_most_posts = 'python'
         self.assertEqual(tags[0]['name'], with_most_posts)
+
+    def test_does_not_include_drafts(self):
+        PostFactory.create(tags=['angular'])  # not published
+        tags = self.perform()
+        self.assertNotIn('angular', map(lambda tag: tag['name'], tags))

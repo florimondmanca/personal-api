@@ -116,9 +116,14 @@ class Post(models.Model):
 class TagManager(models.Manager):
     """Custom manager for tag objects."""
 
-    def with_post_counts(self):
+    def with_post_counts(self, published_only: bool = False):
         """Add a `.post_count` attribute on each tag."""
-        return self.get_queryset().annotate(post_count=models.Count('posts'))
+        if published_only:
+            published_filter = models.Q(posts__published__isnull=False)
+        else:
+            published_filter = None
+        count_aggregate = models.Count('posts', filter=published_filter)
+        return self.get_queryset().annotate(post_count=count_aggregate)
 
 
 class Tag(models.Model):

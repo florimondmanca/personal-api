@@ -1,13 +1,12 @@
 """Blog views."""
 
-from rest_framework import viewsets, mixins
-from rest_framework.filters import SearchFilter
+from django_filters.rest_framework.backends import DjangoFilterBackend
+from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
-from django_filters.rest_framework.backends import DjangoFilterBackend
-
-from .filters import PostFilter, PopularTagFilter
+from .filters import PopularTagFilter, PostFilter
 from .models import Post, Tag
 from .pagination import PostPagination
 from .serializers import PostDetailSerializer, PostSerializer, TagSerializer
@@ -41,7 +40,12 @@ class PostViewSet(viewsets.ModelViewSet):
 class PopularTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """API endpoints for popular tags."""
 
-    queryset = Tag.objects.with_post_counts().order_by('-post_count')
+    queryset = (
+        Tag.objects
+        .with_post_counts(published_only=True)
+        .filter(post_count__gt=0)  # Remove tags that have no published posts
+        .order_by('-post_count')
+    )
     serializer_class = TagSerializer
 
     filter_backends = (DjangoFilterBackend,)
