@@ -37,13 +37,6 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance=post)
         return Response(serializer.data)
 
-    @action(methods=['get'], detail=False)
-    def tags(self, request, **kwargs):
-        """Return a list of tags with their number of posts."""
-        tags = Tag.objects.with_post_counts().values('name', 'post_count')
-        data = sorted(tags, key=lambda tag: tag['post_count'], reverse=True)
-        return Response(data=data)
-
 
 class PopularTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """API endpoints for popular tags."""

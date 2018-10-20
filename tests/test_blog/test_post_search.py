@@ -1,9 +1,11 @@
 """Test searching the list of blog posts."""
 
+from typing import List
+
 from rest_framework.test import APITestCase
-from tests.decorators import authenticated
 
 from blog.factories import PostFactory
+from tests.decorators import authenticated
 
 
 @authenticated
@@ -34,3 +36,24 @@ class PostSearchListTest(APITestCase):
     def test_does_not_return_posts_matching_tags(self):
         results = self.search('docker')
         self.assertEqual(len(results), 0)
+
+
+@authenticated
+class SearchByTagTest(APITestCase):
+    """Test the filtering of the blog post list for a given tag."""
+
+    def perform(self) -> List[dict]:
+        url = '/api/posts/'
+        response = self.client.get(url, data={'tag': 'python'})
+        self.assertEqual(response.status_code, 200)
+        return response.data['results']
+
+    def test_if_post_has_tag_then_included(self):
+        PostFactory.create(tags=['python', 'webdev'])
+        posts = self.perform()
+        self.assertEqual(len(posts), 1)
+
+    def test_if_post_does_not_have_tag_then_not_included(self):
+        PostFactory.create(tags=['javascript', 'webdev'])
+        posts = self.perform()
+        self.assertEqual(len(posts), 0)
