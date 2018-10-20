@@ -3,7 +3,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .models import Post
+from .models import Post, Tag
 
 
 class ImageUrlField(serializers.Field):
@@ -42,6 +42,21 @@ class DescriptionField(serializers.Field):
         return data
 
 
+class TagField(serializers.RelatedField):
+    """Custom related field for post tags."""
+
+    queryset = Tag.objects.all()
+
+    def to_representation(self, tag: Tag) -> str:
+        """Output tag as its string representation."""
+        return str(tag)
+
+    def to_internal_value(self, data: str) -> Tag:
+        """Ingest tag by getting/creating it from the given tag name."""
+        tag, created = Tag.objects.get_or_create(name=data)
+        return tag
+
+
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer for blog posts."""
 
@@ -49,6 +64,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         max_length=Post.SLUG_MAX_LENGTH,
         validators=[UniqueValidator(queryset=Post.objects.all())]
     )
+    tags = TagField(many=True, required=False)
     image_url = ImageUrlField(required=False, allow_null=True)
     description = DescriptionField(required=False)
 

@@ -17,7 +17,7 @@ class PostFilter(filters.FilterSet):
     )
 
     def _filter_tags_contain(self, queryset, name: str, value: str):
-        return queryset.filter(tags__contains=[value])
+        return queryset.filter(tags__name=value)
 
     class Meta:  # noqa
         model = Post

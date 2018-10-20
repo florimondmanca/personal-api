@@ -21,23 +21,6 @@ class PostManager(models.Manager):
         """Return published blog posts only."""
         return self.get_queryset().filter(published__isnull=False)
 
-    def distinct_tags(self) -> models.QuerySet:
-        """Return the list of distinct blog post tags.
-
-        Inspired by
-        -----------
-        https://dba.stackexchange.com/questions/126412/array-integer-how-to-get-all-distinct-values-in-a-table-and-count-them
-        """
-        with_tags = self.with_tags(dest='tag')
-        return with_tags.values_list('tag', flat=True).distinct()
-
-    def with_tags(self, dest='tag') -> models.QuerySet:
-        """Return a queryset annotated with flattened tags."""
-        queryset = self.get_queryset()
-        unnest_tags = Unnest('tags')
-        with_tags = queryset.annotate(**{dest: unnest_tags})
-        return with_tags
-
 
 class Post(models.Model):
     """Represents a blog post."""
@@ -57,8 +40,6 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(blank=True, null=True)
-    tags = ArrayField(
-        models.CharField(max_length=100), blank=True, default=list)
 
     class Meta:  # noqa
         ordering = ('-published',)
@@ -130,3 +111,24 @@ class Post(models.Model):
     def list_absolute_url(cls) -> str:
         """Return the absolute URL path for the list of posts."""
         return '/'
+
+
+class TagManager(models.Manager):
+    """Custom manager for tag objects."""
+
+    def with_post_counts(self):
+        """Add a `.post_count` attribute on each tag."""
+        return self.get_queryset().annotate(post_count=models.Count('posts'))
+
+
+class Tag(models.Model):
+    """Represents a group of posts related to similar content."""
+
+    objects = TagManager()
+
+    name = models.CharField(max_length=20)
+    posts = models.ManyToManyField(to=Post, related_name='tags')
+
+    def __str__(self) -> str:
+        """Represent the tag by its name."""
+        return str(self.name)

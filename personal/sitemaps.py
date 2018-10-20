@@ -9,7 +9,7 @@ from typing import List
 
 from django.contrib.sitemaps import Sitemap
 
-from blog.models import Post
+from blog.models import Post, Tag
 
 
 class PostSitemap(Sitemap):
@@ -34,7 +34,7 @@ class TagSitemap(Sitemap):
 
     def items(self) -> List[str]:
         """Return a list of all existing tags."""
-        return list(Post.objects.distinct_tags())
+        return list(Tag.objects.all().values_list('name', flat=True))
 
     def location(self, tag: str) -> str:
         """Return the location of a tag."""
