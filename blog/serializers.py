@@ -80,6 +80,16 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class TagSerializer(serializers.ModelSerializer):
+    """Serializer for tags."""
+
+    post_count = serializers.IntegerField()  # field is an annotation
+
+    class Meta:  # noqa
+        model = Tag
+        fields = ('id', 'name', 'post_count',)
+
+
 class MinimalPostSerializer(serializers.ModelSerializer):
     """Minimal serializer for post objects."""
 
