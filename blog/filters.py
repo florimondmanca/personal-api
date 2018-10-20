@@ -1,7 +1,7 @@
 """Blog filters."""
 
 import django_filters as filters
-from .models import Post
+from .models import Post, Tag
 
 
 class PostFilter(filters.FilterSet):
@@ -22,3 +22,17 @@ class PostFilter(filters.FilterSet):
     class Meta:  # noqa
         model = Post
         fields = ('draft', 'slug', 'tag',)
+
+
+class PopularTagFilter(filters.FilterSet):
+    """Filter for popular tag objects."""
+
+    limit = filters.NumberFilter(method='_limit')
+
+    def _limit(self, queryset, name: str, value: int):
+        """Limit to amount of elements in queryset."""
+        return queryset[:int(value)]
+
+    class Meta:  # noqa
+        model = Tag
+        fields = ('limit',)
