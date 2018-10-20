@@ -1,6 +1,5 @@
 """Test the popular tags API."""
 
-
 from typing import List
 
 from rest_framework.test import APITestCase
