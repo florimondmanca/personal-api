@@ -6,14 +6,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0010_auto_20180814_1852'),
-    ]
+    dependencies = [("blog", "0010_auto_20180814_1852")]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='tags',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(max_length=100), blank=True, default=list, size=None),
-        ),
+            model_name="post",
+            name="tags",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.CharField(max_length=100),
+                blank=True,
+                default=list,
+                size=None,
+            ),
+        )
     ]

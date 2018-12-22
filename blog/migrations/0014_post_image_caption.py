@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0013_remove_post_image'),
-    ]
+    dependencies = [("blog", "0013_remove_post_image")]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='image_caption',
+            model_name="post",
+            name="image_caption",
             field=models.TextField(blank=True, null=True),
-        ),
+        )
     ]

@@ -12,9 +12,9 @@ class PostFactory(factory.DjangoModelFactory):
     class Meta:  # noqa
         model = Post
 
-    title = factory.Faker('sentence')
-    content = factory.Faker('text')
-    slug = factory.Faker('slug')
+    title = factory.Faker("sentence")
+    content = factory.Faker("text")
+    slug = factory.Faker("slug")
 
     @factory.post_generation
     def tags(self, create, extracted, **kwargs):

@@ -6,15 +6,15 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0004_auto_20180714_2059'),
-    ]
+    dependencies = [("blog", "0004_auto_20180714_2059")]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='created',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="post",
+            name="created",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
-        ),
+        )
     ]

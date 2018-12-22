@@ -17,18 +17,18 @@ class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    lookup_field = 'slug'
-    filter_backends = (SearchFilter, DjangoFilterBackend,)
+    lookup_field = "slug"
+    filter_backends = (SearchFilter, DjangoFilterBackend)
     filterset_class = PostFilter
-    search_fields = ('title', 'description')
+    search_fields = ("title", "description")
     pagination_class = PostPagination
 
     def get_serializer_class(self):
-        if self.action == 'retrieve':
+        if self.action == "retrieve":
             return PostDetailSerializer
         return PostSerializer
 
-    @action(methods=['patch'], detail=True)
+    @action(methods=["patch"], detail=True)
     def publication(self, request, **kwargs):
         """Publish a blog post."""
         post = self.get_object()
@@ -41,10 +41,9 @@ class PopularTagViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """API endpoints for popular tags."""
 
     queryset = (
-        Tag.objects
-        .with_post_counts(published_only=True)
+        Tag.objects.with_post_counts(published_only=True)
         .filter(post_count__gt=0)  # Remove tags that have no published posts
-        .order_by('-post_count', 'name')  # break count ties using name
+        .order_by("-post_count", "name")  # break count ties using name
     )
     serializer_class = TagSerializer
 

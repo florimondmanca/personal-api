@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0011_post_tags'),
-    ]
+    dependencies = [("blog", "0011_post_tags")]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='modified',
+            model_name="post",
+            name="modified",
             field=models.DateTimeField(auto_now=True),
-        ),
+        )
     ]

@@ -14,6 +14,6 @@ class PostDeleteTest(APITestCase):
         self.post = PostFactory.create()
 
     def test_delete(self):
-        url = f'/api/posts/{self.post.slug}/'
+        url = f"/api/posts/{self.post.slug}/"
         response = self.client.delete(url)
         self.assertEqual(response.status_code, 204)

@@ -16,16 +16,15 @@ class PostCreateTest(APITestCase):
 
     def get_payload(self) -> dict:
         return {
-            'title': self.post.title,
-            'slug': self.post.slug,
-            'content': self.post.content,
+            "title": self.post.title,
+            "slug": self.post.slug,
+            "content": self.post.content,
         }
 
     def perform(self, payload: dict = None, check_created=True):
         if payload is None:
             payload = self.get_payload()
-        response = self.client.post(f'/api/posts/',
-                                    data=payload, format='json')
+        response = self.client.post(f"/api/posts/", data=payload, format="json")
         if check_created:
             self.assertEqual(response.status_code, 201)
         return response
@@ -34,7 +33,7 @@ class PostCreateTest(APITestCase):
         self.perform()
 
     def test_missing_required_field_returns_bad_request(self):
-        for field in 'title', 'slug':
+        for field in "title", "slug":
             payload = self.get_payload()
             payload.pop(field)
             response = self.perform(payload=payload, check_created=False)

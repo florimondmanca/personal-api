@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0018_remove_post_tags'),
-    ]
+    dependencies = [("blog", "0018_remove_post_tags")]
 
     operations = [
         migrations.AlterField(
-            model_name='tag',
-            name='posts',
-            field=models.ManyToManyField(related_name='tags', to='blog.Post'),
-        ),
+            model_name="tag",
+            name="posts",
+            field=models.ManyToManyField(related_name="tags", to="blog.Post"),
+        )
     ]

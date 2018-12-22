@@ -15,7 +15,7 @@ class PostPublishTest(APITestCase):
 
     def test_update_draft(self):
         self.assertTrue(self.post.is_draft)
-        url = f'/api/posts/{self.post.slug}/publication/'
+        url = f"/api/posts/{self.post.slug}/publication/"
         response = self.client.patch(url, data={})
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.data['is_draft'])
+        self.assertFalse(response.data["is_draft"])

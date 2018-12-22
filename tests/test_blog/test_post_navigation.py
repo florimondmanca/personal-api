@@ -16,7 +16,7 @@ class PostNavigationTestMixin:
     relative_field: str
 
     def perform(self, post: Post):
-        response = self.client.get(f'/api/posts/{post.slug}/')
+        response = self.client.get(f"/api/posts/{post.slug}/")
         self.assertEqual(response.status_code, 200)
         return response
 
@@ -37,15 +37,9 @@ class PostNavigationTestMixin:
         post = PostFactory.create(published=now)
         relative = self.get_relative(now)
         response = self.perform(post)
-        expected = {
-            'title': relative.title,
-            'slug': relative.slug,
-        }
+        expected = {"title": relative.title, "slug": relative.slug}
         data = response.data[self.relative_field]
-        actual = {
-            field: data.get(field)
-            for field in expected
-        }
+        actual = {field: data.get(field) for field in expected}
         self.assertEqual(actual, expected)
 
 
@@ -53,7 +47,7 @@ class PostNavigationTestMixin:
 class PostPreviousTest(PostNavigationTestMixin, APITestCase):
     """Test the previous field on retrieve endpoint."""
 
-    relative_field = 'previous'
+    relative_field = "previous"
 
     def get_relative(self, published):
         earlier = published - timedelta(days=1)
@@ -64,7 +58,7 @@ class PostPreviousTest(PostNavigationTestMixin, APITestCase):
 class PostNextTest(PostNavigationTestMixin, APITestCase):
     """Test the next field on retrieve endpoint."""
 
-    relative_field = 'next'
+    relative_field = "next"
 
     def get_relative(self, published):
         later = published + timedelta(days=1)

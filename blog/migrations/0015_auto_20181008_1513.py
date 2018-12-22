@@ -5,17 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0014_post_image_caption'),
-    ]
+    dependencies = [("blog", "0014_post_image_caption")]
 
     operations = [
         migrations.AddIndex(
-            model_name='post',
-            index=models.Index(fields=['created'], name='blog_post_created_594d2d_idx'),
+            model_name="post",
+            index=models.Index(fields=["created"], name="blog_post_created_594d2d_idx"),
         ),
         migrations.AddIndex(
-            model_name='post',
-            index=models.Index(fields=['published'], name='blog_post_publish_8fcab7_idx'),
+            model_name="post",
+            index=models.Index(
+                fields=["published"], name="blog_post_publish_8fcab7_idx"
+            ),
         ),
     ]

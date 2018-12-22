@@ -5,8 +5,8 @@ from django.db import migrations
 
 def populate_tags_set(apps, schema_editor):
     """Create Tag objects from each post's list of tags."""
-    Post = apps.get_model('blog.Post')
-    Tag = apps.get_model('blog.Tag')
+    Post = apps.get_model("blog.Post")
+    Tag = apps.get_model("blog.Tag")
 
     tags_created = 0
     posts_updated = 0
@@ -15,14 +15,14 @@ def populate_tags_set(apps, schema_editor):
         for tag_name in post.tags:
             tag, created = Tag.objects.get_or_create(name=tag_name)
             if created:
-                print('Created tag:', tag.name)
+                print("Created tag:", tag.name)
                 tags_created += 1
             tag.posts.add(post)
-            print('Added', post, 'to', tag)
+            print("Added", post, "to", tag)
             posts_updated += 1
 
     if tags_created:
-        print('Created', tags_created, 'tags from', posts_updated, 'posts')
+        print("Created", tags_created, "tags from", posts_updated, "posts")
 
 
 def undo(apps, schema_editor):
@@ -32,10 +32,6 @@ def undo(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0016_tag'),
-    ]
+    dependencies = [("blog", "0016_tag")]
 
-    operations = [
-        migrations.RunPython(populate_tags_set, undo)
-    ]
+    operations = [migrations.RunPython(populate_tags_set, undo)]

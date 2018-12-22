@@ -8,3 +8,6 @@ __pycache__/
 /static/
 /media/*
 !/media/test_assets
+
+.idea/
+.vscode/

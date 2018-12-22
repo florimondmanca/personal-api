@@ -6,19 +6,15 @@ import markdownx.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0001_initial'),
-    ]
+    dependencies = [("blog", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='content',
-            field=markdownx.models.MarkdownxField(blank=True, default=''),
+            model_name="post",
+            name="content",
+            field=markdownx.models.MarkdownxField(blank=True, default=""),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='slug',
-            field=models.SlugField(unique=True),
+            model_name="post", name="slug", field=models.SlugField(unique=True)
         ),
     ]

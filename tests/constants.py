@@ -3,4 +3,4 @@
 import os
 from django.conf import settings
 
-TEST_ASSETS_DIR = os.path.join(settings.MEDIA_ROOT, 'test_assets')
+TEST_ASSETS_DIR = os.path.join(settings.MEDIA_ROOT, "test_assets")

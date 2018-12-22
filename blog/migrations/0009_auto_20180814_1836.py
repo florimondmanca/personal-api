@@ -5,24 +5,22 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('blog', '0008_auto_20180729_2145'),
-    ]
+    dependencies = [("blog", "0008_auto_20180729_2145")]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='description',
-            field=models.TextField(default='', help_text='Used for social cards and RSS.'),
+            model_name="post",
+            name="description",
+            field=models.TextField(
+                default="", help_text="Used for social cards and RSS."
+            ),
         ),
         migrations.AddField(
-            model_name='post',
-            name='image',
-            field=models.ImageField(null=True, upload_to='post-images'),
+            model_name="post",
+            name="image",
+            field=models.ImageField(null=True, upload_to="post-images"),
         ),
         migrations.AddField(
-            model_name='post',
-            name='image_url',
-            field=models.URLField(null=True),
+            model_name="post", name="image_url", field=models.URLField(null=True)
         ),
     ]

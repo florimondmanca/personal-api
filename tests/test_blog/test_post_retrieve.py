@@ -6,7 +6,8 @@ from tests.decorators import authenticated
 from blog.factories import PostFactory
 
 from .test_post_list import _POST_FIELDS
-_POST_DETAIL_FIELDS = _POST_FIELDS.union({'next', 'previous'})
+
+_POST_DETAIL_FIELDS = _POST_FIELDS.union({"next", "previous"})
 
 
 @authenticated
@@ -19,7 +20,7 @@ class PostRetrieveTest(APITestCase):
     def perform(self, post=None):
         if post is None:
             post = self.post
-        response = self.client.get(f'/api/posts/{post.slug}/')
+        response = self.client.get(f"/api/posts/{post.slug}/")
         self.assertEqual(response.status_code, 200)
         return response
 

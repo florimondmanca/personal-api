@@ -4,7 +4,7 @@ import socket
 
 
 def _guard(*args, **kwargs):
-    raise Exception('A test tried to access the Internet!')
+    raise Exception("A test tried to access the Internet!")
 
 
 socket.socket = _guard

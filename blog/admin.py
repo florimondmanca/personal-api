@@ -8,8 +8,8 @@ from .models import Post, Tag
 class PostAdmin(admin.ModelAdmin):
     """Admin panel for blog posts."""
 
-    list_display = ('__str__', 'created', 'modified', 'published',)
-    list_filter = ('created', 'published',)
+    list_display = ("__str__", "created", "modified", "published")
+    list_filter = ("created", "published")
 
 
 @admin.register(Tag)

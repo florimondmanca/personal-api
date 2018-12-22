@@ -17,7 +17,7 @@ class PostSitemap(Sitemap):
 
     # Frequency of change of each item.
     # Blog posts *may* be updated weekly.
-    changefreq = 'weekly'
+    changefreq = "weekly"
 
     def items(self):
         return Post.objects.published()
@@ -30,34 +30,30 @@ class TagSitemap(Sitemap):
     """Site map for blog tags."""
 
     # Tag pages *may* change monthly (in case of new posts).
-    changefreq = 'monthly'
+    changefreq = "monthly"
 
     def items(self) -> List[str]:
         """Return a list of all existing tags."""
-        return list(Tag.objects.all().values_list('name', flat=True))
+        return list(Tag.objects.all().values_list("name", flat=True))
 
     def location(self, tag: str) -> str:
         """Return the location of a tag."""
-        return f'/t/{tag}'
+        return f"/t/{tag}"
 
 
 class StaticSitemap(Sitemap):
     """Site map for static pages."""
 
     # Static pages *may* change weekly.
-    changefreq = 'weekly'
+    changefreq = "weekly"
 
     def items(self) -> List[str]:
         """Return a list of static pages paths."""
-        return ['', 'about/me', 'about/tech', 'privacy']
+        return ["", "about/me", "about/tech", "privacy"]
 
     def location(self, page: str) -> str:
         """Return the location of a static page."""
-        return f'/{page}'
+        return f"/{page}"
 
 
-sitemaps = {
-    'posts': PostSitemap,
-    'tags': TagSitemap,
-    'static': StaticSitemap,
-}
+sitemaps = {"posts": PostSitemap, "tags": TagSitemap, "static": StaticSitemap}

@@ -8,18 +8,18 @@ from tests.decorators import authenticated
 from blog.factories import PostFactory
 
 _POST_FIELDS = {
-    'id',
-    'url',
-    'slug',
-    'title',
-    'content',
-    'image_url',
-    'image_caption',
-    'description',
-    'created',
-    'published',
-    'is_draft',
-    'tags',
+    "id",
+    "url",
+    "slug",
+    "title",
+    "content",
+    "image_url",
+    "image_caption",
+    "description",
+    "created",
+    "published",
+    "is_draft",
+    "tags",
 }
 
 
@@ -31,9 +31,9 @@ class PostListTest(APITestCase):
         PostFactory.create_batch(3)
 
     def perform(self, **params) -> List[dict]:
-        response = self.client.get('/api/posts/', params)
+        response = self.client.get("/api/posts/", params)
         self.assertEqual(response.status_code, 200)
-        return response.data['results']
+        return response.data["results"]
 
     def test_list(self):
         posts = self.perform()

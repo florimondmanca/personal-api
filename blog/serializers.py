@@ -18,7 +18,7 @@ class ImageUrlField(serializers.Field):
         relative_url = post.image_url
         if not relative_url:
             return None
-        request = self.context.get('request')
+        request = self.context.get("request")
         if not request:  # cannot build full URL without request
             return relative_url
         return request.build_absolute_uri(relative_url)
@@ -62,7 +62,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     slug = serializers.SlugField(
         max_length=Post.SLUG_MAX_LENGTH,
-        validators=[UniqueValidator(queryset=Post.objects.all())]
+        validators=[UniqueValidator(queryset=Post.objects.all())],
     )
     tags = TagField(many=True, required=False)
     image_url = ImageUrlField(required=False, allow_null=True)
@@ -70,13 +70,24 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:  # noqa
         model = Post
-        fields = ('id', 'url', 'title', 'slug', 'description',
-                  'image_url', 'image_caption',
-                  'content', 'created', 'published', 'is_draft', 'tags',)
-        lookup_field = 'slug'
+        fields = (
+            "id",
+            "url",
+            "title",
+            "slug",
+            "description",
+            "image_url",
+            "image_caption",
+            "content",
+            "created",
+            "published",
+            "is_draft",
+            "tags",
+        )
+        lookup_field = "slug"
         extra_kwargs = {
-            'url': {'view_name': 'api:post-detail', 'lookup_field': 'slug'},
-            'published': {'read_only': True},
+            "url": {"view_name": "api:post-detail", "lookup_field": "slug"},
+            "published": {"read_only": True},
         }
 
 
@@ -87,7 +98,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:  # noqa
         model = Tag
-        fields = ('id', 'name', 'post_count',)
+        fields = ("id", "name", "post_count")
 
 
 class MinimalPostSerializer(serializers.ModelSerializer):
@@ -95,7 +106,7 @@ class MinimalPostSerializer(serializers.ModelSerializer):
 
     class Meta:  # noqa
         model = Post
-        fields = ('title', 'slug', 'tags',)
+        fields = ("title", "slug", "tags")
 
 
 class PostDetailSerializer(PostSerializer):
@@ -105,4 +116,4 @@ class PostDetailSerializer(PostSerializer):
     next = MinimalPostSerializer(read_only=True)
 
     class Meta(PostSerializer.Meta):  # noqa
-        fields = PostSerializer.Meta.fields + ('previous', 'next',)
+        fields = PostSerializer.Meta.fields + ("previous", "next")

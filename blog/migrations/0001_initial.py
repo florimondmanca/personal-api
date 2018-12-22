@@ -8,21 +8,26 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=300)),
-                ('slug', models.SlugField()),
-                ('content', markdownx.models.MarkdownxField()),
-                ('published', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=300)),
+                ("slug", models.SlugField()),
+                ("content", markdownx.models.MarkdownxField()),
+                ("published", models.DateTimeField(auto_now_add=True)),
             ],
-            options={
-                'ordering': ('-published',),
-            },
-        ),
+            options={"ordering": ("-published",)},
+        )
     ]
