@@ -1,42 +1,41 @@
 language: python
 
-# Cache dependencies between builds
 cache: pip
 
 python:
   - "3.6"
 
-# Required by deploy.sh
-node_js:
-  - "8.7"
-
 services:
   - postgresql
 
 addons:
-  # Django 2.1+ requires PostgreSQL 9.4+
-  postgresql: '9.4'
+  postgresql: "10"
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_10c95f5eae30_key -iv $encrypted_10c95f5eae30_iv -in .travis/deploy.key.enc -out .travis/deploy.key -d
+  - chmod +x .travis/deploy.sh
+  - eval "$(ssh-agent -s)"
+  - chmod 600 .travis/deploy.key
+  - ssh-add .travis/deploy.key
+  - ssh-keyscan florimond.dev >> ~/.ssh/known_hosts
+  - git remote add dokku dokku@florimond.dev:api
 
 install:
+  - psql -c 'create database personal;' -U postgres
+  - export DATABASE_URL="postgres://postgres:postgres@localhost:5432/personal"
   - pip install pipenv
   - pipenv install
-
-before_script:
-  - psql -c 'create database personal;' -U postgres
   - pipenv run python manage.py migrate
 
 script:
   - pipenv run python manage.py test
 
-before_deploy:
-  - npm install -g captainduckduck
-
 deploy:
   provider: script
-  script: captainduckduck deploy -s -h https://captain.florimondmanca.com -a api -p $CAPTAIN_PASSWORD
+  script: bash .travis/deploy.sh
   on:
     branch: master
-
-env:
-  global:
-    secure: "EjwW/cs6st9bQnKmfM+9UcKkkxQ7J+7eL1XXyAZYVvTCFesxURb5VA2iq9V5ABrQ3Jh6KhL1J16B3QGPGqChujENP5NCIANsJpCXtUvrixv2NmwlrKxUffs2ftpSNhadfDd72wujrQjKwEMVXwMdGR3Oh/aI2FZXjVcFqOYDmjfc45ejdcnAVNIKgnsMNSYQazyH6S1JwN00XiiTOCtd6H5F5rehKXNbJ2R/Pw4lQ22pLiRu5B3vlIVY9LInSMncnk76/0MvaFyFlw0HUhEwseZLM4zIcSf4swOqiQ0rd4U96TYUCfRhY86zqXynHpz9RxmITEVi6tyekQmpRbJEiJL4oMikERe1Su1gg7TAtDXBqn//iS5ELzpFNkueaq2f2ZpPu27ODgh6m2eed0Nk0IJuQAGDYd9yi9xCEg+iuqOiPXXWLLtFKAmiACUuNMra3zJdMS31t2y9rL1uNSGAqjCzZSLXHpVhc1hW5NJ9mgdogG6hSicaioc89o8ZGgmm1coJv5nhWTRmJDK/dAtancUC9sN6fJsBceKrulSmnGtHWp7/ksXcg7T04zB8g/pJBpxA9m8ls+5O8Z5EUGnWjGi7wEfTFrefTqNZN/pkClTTR5i/msd57yPzRtteMeqlXFfb2Rug5NCYFwOyMNFcGRyybQ5VXnmJLCmHpsvnLNE="

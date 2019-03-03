@@ -11,3 +11,6 @@ __pycache__/
 
 .idea/
 .vscode/
+
+.travis/deploy.key
+.travis/deploy.key.pub

@@ -8,11 +8,9 @@ Django = ">=2.0"
 djangorestframework = ">=3.8"
 "psycopg2" = "*"
 django-markdownx = "*"
-pymdown-extensions = "*"
 python-dotenv = "*"
 dj-database-url = "*"
 whitenoise = "*"
-Pygments = "*"
 gunicorn = "*"
 django-cors-headers = "*"
 django-filter = "*"
@@ -22,11 +20,9 @@ django-storages = "*"
 "beautifulsoup4" = "*"
 markdown = "*"
 djangorestframework-api-key = "*"
-safety = "*"
 
 [dev-packages]
 pylint = "*"
-black = "*"
 
 [requires]
 python_version = "3.7"
