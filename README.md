@@ -1,14 +1,12 @@
 # Personal API
 
-[![Build Status](https://img.shields.io/travis-ci/florimondmanca/personal-api.svg?style=flat-square)](https://travis-ci.org/florimondmanca/personal-api)
-[![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=flat-square)](https://docs.python.org/3/)
-[![Django](https://img.shields.io/badge/django-2.0-blue.svg?style=flat-square)](https://www.djangoproject.com)
-[![DigitalOcean](https://img.shields.io/badge/digitalocean-deployed-0069fe.svg?style=flat-square)](https://digitalocean.com)
-[![CaptainDuckDuck](https://img.shields.io/badge/captainduckduck-quack-fdc73d.svg?style=flat-square)](https://captainduckduck.com)
+[![Build Status](https://img.shields.io/travis/florimondmanca/personal-api.svg?style=flat)](https://travis-ci.org/florimondmanca/personal-api)
+[![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=flat)](https://docs.python.org/3/)
+[![Django](https://img.shields.io/badge/django-2.0-blue.svg?style=flat)](https://www.djangoproject.com)
+[![DigitalOcean](https://img.shields.io/badge/digitalocean-deployed-0069fe.svg?style=flat)](https://digitalocean.com)
+[![Dokku](https://img.shields.io/badge/platform-dokku-fdc73d.svg?style=flat)](http://dokku.viewdocs.io/dokku/)
 
-[![](https://blog.florimondmanca.com/assets/img/codesail-full-repo.png)](https://blog.florimondmanca.com)
-
-This is the repository for the **backend REST API** powering [CodeSail](https://blog.florimondmanca.com), my personal website and blog.
+This is the repository for the **backend REST API** powering my [blog](https://blog.florimondmanca.com).
 
 ## Features
 
