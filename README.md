@@ -6,7 +6,7 @@
 [![DigitalOcean](https://img.shields.io/badge/digitalocean-deployed-0069fe.svg?style=flat)](https://digitalocean.com)
 [![Dokku](https://img.shields.io/badge/platform-dokku-fdc73d.svg?style=flat)](http://dokku.viewdocs.io/dokku/)
 
-This is the repository for the **backend REST API** powering my [blog](https://blog.florimondmanca.com).
+This is the repository for the **backend REST API** powering my [blog](https://blog.florimond.dev).
 
 ## Features
 
