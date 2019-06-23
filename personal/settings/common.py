@@ -104,7 +104,7 @@ CORS_ORIGIN_REGEX_WHITELIST = [
     # localhost on any port
     r"(https?://)?localhost:(\d+)"
 ]
-CORS_ALLOW_HEADERS = default_headers + ("Api-Token", "Api-Secret-Key")
+CORS_ALLOW_HEADERS = default_headers + ("X-Api-Key",)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -135,14 +135,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework_api_key.permissions.HasAPIKeyOrIsAuthenticated"
+        "blog.permissions.HasAPIKeyOrIsAuthenticated"
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
 }
-
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
 
 # Logging
 
