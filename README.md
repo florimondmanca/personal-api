@@ -1,3 +1,9 @@
+# NOTICE
+
+Now unused. See [florimondmanca/www](https://github.com/florimondmanca/www).
+
+---
+
 # Personal API
 
 [![Build Status](https://img.shields.io/travis/florimondmanca/personal-api.svg?style=flat)](https://travis-ci.org/florimondmanca/personal-api)
